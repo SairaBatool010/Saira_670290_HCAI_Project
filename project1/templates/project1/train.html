@@ -5,6 +5,7 @@
 {% block content %}
 
 <div class="box">
+    <div class="back-home-link"><a href="{% url 'home:index' %}">&larr; Back to home</a></div>
     <div class="title-container">
         <div class="title">Model training</div>
     </div>
@@ -130,8 +131,7 @@
 
         <br>
         <a href="{% url 'project1:visualize' %}">Back to visualization</a> |
-        <a href="{% url 'project1:index' %}">Upload another CSV</a> |
-        <a href="{% url 'home:index' %}">Back to home</a>
+        <a href="{% url 'project1:index' %}">Upload another CSV</a>
     </div>
 </div>
 

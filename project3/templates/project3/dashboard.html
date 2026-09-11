@@ -1,12 +1,28 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'project3/style.css' %}">
 
+<div class="back-home-link"><a href="{% url 'home:index' %}">&larr; Back to home</a></div>
 <div class="p3-dashboard">
     <div class="p3-hero">
-        <h1>Project 3: Learning-to-Defer</h1>
+        <h1>Project 3: Active Learning for Learning-to-Defer</h1>
         <p class="p3-subtitle">Human-AI collaboration on AG News with active learning</p>
-        <p class="p3-note">Results load from saved experiment files — opening this page does <strong>not</strong> retrain models.</p>
     </div>
+
+    <section id="report" class="p3-section p3-report-top">
+        <h2>Project Report (required deliverable)</h2>
+        <p>The PDF report below contains the full description of the experiments, design
+        justifications, and detailed results for Tasks 1–4, as required by the assignment.</p>
+        {% if report_ready %}
+            <a class="p3-download" href="{% url 'project3:download_report' %}">Download PDF report</a>
+        {% else %}
+            <p>Run all tasks then: <code>python manage.py run_project3_phases5_10</code></p>
+        {% endif %}
+    </section>
+
+    <p class="p3-note">Everything below this point is an <strong>additional, optional</strong> interactive
+    dashboard that mirrors the same results from the report live in the browser — it is not part of the
+    required deliverable. Results load from saved experiment files — opening this page does
+    <strong>not</strong> retrain models.</p>
 
     <div class="p3-pipeline">
         <div class="p3-step">AG News</div>
@@ -25,7 +41,6 @@
         <a href="#task3">Task 3</a>
         <a href="#task4">Task 4</a>
         <a href="#task5">Task 5</a>
-        <a href="#report">Report</a>
     </nav>
 
     <section id="dashboard" class="p3-section">
@@ -55,6 +70,24 @@
                     <p>Best AL accuracy: <strong>{{ task4_summary.best_al_accuracy|floatformat:4 }}</strong></p>
                 {% else %}<p>Not run</p>{% endif %}
             </div>
+            <div class="p3-card {% if task2b_ready %}ready{% endif %}">
+                <h3>Expert B — Task 2</h3>
+                {% if task2b_ready %}
+                    <p>Test accuracy: <strong>{{ task2b_summary.test_metrics.accuracy|floatformat:4 }}</strong></p>
+                {% else %}<p>Not run</p>{% endif %}
+            </div>
+            <div class="p3-card {% if task3b_ready %}ready{% endif %}">
+                <h3>Expert B — Task 3</h3>
+                {% if task3b_ready %}
+                    <p>Best team accuracy: <strong>{{ task3b_summary.best_team_accuracy|floatformat:4 }}</strong></p>
+                {% else %}<p>Not run</p>{% endif %}
+            </div>
+            <div class="p3-card {% if task4b_ready %}ready{% endif %}">
+                <h3>Expert B — Task 4</h3>
+                {% if task4b_ready %}
+                    <p>Best AL accuracy: <strong>{{ task4b_summary.best_al_accuracy|floatformat:4 }}</strong></p>
+                {% else %}<p>Not run</p>{% endif %}
+            </div>
         </div>
         {% if not all_ready %}
             <div class="p3-commands">
@@ -63,7 +96,8 @@
 {% endif %}{% if task1_ready and not task2_ready %}python manage.py run_project3_task2
 {% endif %}{% if task2_ready and not task3_ready %}python manage.py run_project3_task3
 {% endif %}{% if task3_ready and not task4_ready %}python manage.py run_project3_task4
-{% endif %}python manage.py run_project3_phases5_10  # tasks 3-4 + PDF</pre>
+{% endif %}python manage.py run_project3_phases5_10  # tasks 3-4 + PDF
+python manage.py run_project3_expertB  # Expert B: tasks 2-4 + PDF</pre>
             </div>
         {% endif %}
     </section>
@@ -87,7 +121,9 @@
     </section>
 
     <section id="task2" class="p3-section">
-        <h2>Task 2 — Simulated Expert</h2>
+        <h2>Task 2 — Simulated Experts</h2>
+
+        <h3>Expert A — Generalist Journalist</h3>
         {% if task2_ready %}
             <p>{{ task2_summary.expert_name }} — {{ task2_summary.design_rationale }}</p>
             <p>Competence: {{ task2_summary.competence_profile }}</p>
@@ -102,15 +138,40 @@
                 <li>Expert only: {{ task2_summary.ai_expert_comparison.counts.ai_wrong_expert_correct }}</li>
             </ul>
             <div class="p3-plots">
-                <img src="{{ task2_summary.plot_urls.test_ai_vs_expert }}" alt="AI vs expert">
+                <img src="{{ task2_summary.plot_urls.test_ai_vs_expert }}" alt="AI vs expert A">
             </div>
         {% else %}
             <p>Run <code>python manage.py run_project3_task2</code></p>
+        {% endif %}
+
+        <h3>Expert B — Business Specialist</h3>
+        {% if task2b_ready %}
+            <p>{{ task2b_summary.expert_name }} — {{ task2b_summary.expert_description }}</p>
+            <p>Competence: {{ task2b_summary.competence_profile }}</p>
+            <table class="p3-table">
+                <tr><th>Split</th><th>Accuracy</th><th>Macro F1</th></tr>
+                <tr><td>Validation</td><td>{{ task2b_summary.validation_metrics.accuracy|floatformat:4 }}</td><td>{{ task2b_summary.validation_metrics.macro_f1|floatformat:4 }}</td></tr>
+                <tr><td>Test</td><td>{{ task2b_summary.test_metrics.accuracy|floatformat:4 }}</td><td>{{ task2b_summary.test_metrics.macro_f1|floatformat:4 }}</td></tr>
+            </table>
+            <ul>
+                <li>Both correct: {{ task2b_summary.ai_expert_comparison.counts.both_correct }}</li>
+                <li>AI only: {{ task2b_summary.ai_expert_comparison.counts.ai_correct_expert_wrong }}</li>
+                <li>Expert only: {{ task2b_summary.ai_expert_comparison.counts.ai_wrong_expert_correct }}</li>
+            </ul>
+            <p>Unlike Expert A, Expert B genuinely <strong>outperforms the AI in Business</strong> —
+            see the full report for the verified margin and per-class breakdown.</p>
+            <div class="p3-plots">
+                <img src="{{ task2b_summary.plot_urls.test_ai_vs_expert }}" alt="AI vs expert B">
+            </div>
+        {% else %}
+            <p>Run <code>python manage.py run_project3_expertB</code></p>
         {% endif %}
     </section>
 
     <section id="task3" class="p3-section">
         <h2>Task 3 — Learning-to-Defer</h2>
+
+        <h3>Expert A — Generalist Journalist</h3>
         {% if task3_ready %}
             <table class="p3-table">
                 <tr><th>Strategy</th><th>Team acc.</th><th>Defer rate</th><th>Helpful</th><th>Unnecessary</th></tr>
@@ -125,20 +186,46 @@
                 {% endfor %}
             </table>
             <div class="p3-plots">
-                <img src="{{ task3_summary.plot_urls.strategy_comparison }}" alt="Strategy comparison">
-                <img src="{{ task3_summary.plot_urls.threshold_search }}" alt="Threshold search">
+                <img src="{{ task3_summary.plot_urls.strategy_comparison }}" alt="Strategy comparison (Expert A)">
+                <img src="{{ task3_summary.plot_urls.threshold_search }}" alt="Threshold search (Expert A)">
             </div>
         {% else %}
             <p>Run <code>python manage.py run_project3_task3</code></p>
+        {% endif %}
+
+        <h3>Expert B — Business Specialist</h3>
+        {% if task3b_ready %}
+            <table class="p3-table">
+                <tr><th>Strategy</th><th>Team acc.</th><th>Defer rate</th><th>Helpful</th><th>Unnecessary</th></tr>
+                {% for name, data in task3b_summary.strategies.items %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ data.test_official.team_accuracy|floatformat:4 }}</td>
+                    <td>{{ data.test_official.defer_rate|floatformat:4 }}</td>
+                    <td>{{ data.test_official.defer_helpful_count }}</td>
+                    <td>{{ data.test_official.defer_unnecessary_count }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <p>Even with a genuinely complementary expert, no strategy finds a large team-accuracy
+            gain here — the report explains why (correlated difficulty between the AI and a
+            text-based expert reading the same article).</p>
+            <div class="p3-plots">
+                <img src="{{ task3b_summary.plot_urls.strategy_comparison }}" alt="Strategy comparison (Expert B)">
+            </div>
+        {% else %}
+            <p>Run <code>python manage.py run_project3_expertB</code></p>
         {% endif %}
     </section>
 
     <section id="task4" class="p3-section">
         <h2>Task 4 — Active Learning</h2>
+
+        <h3>Expert A — Generalist Journalist</h3>
         {% if task4_ready %}
             <p>Query budgets: {{ task4_summary.query_budgets|join:", " }}</p>
             {% for strategy, rows in task4_summary.strategies.items %}
-                <h3>{{ strategy }}</h3>
+                <h4>{{ strategy }}</h4>
                 <table class="p3-table">
                     <tr><th>Queries</th><th>Team acc.</th><th>Defer rate</th><th>Competence MAE</th></tr>
                     {% for row in rows %}
@@ -152,11 +239,22 @@
                 </table>
             {% endfor %}
             <div class="p3-plots">
-                <img src="{{ task4_summary.plot_urls.learning_curves }}" alt="Learning curves">
-                <img src="{{ task4_summary.plot_urls.competence_mae }}" alt="Competence MAE">
+                <img src="{{ task4_summary.plot_urls.learning_curves }}" alt="Learning curves (Expert A)">
+                <img src="{{ task4_summary.plot_urls.competence_mae }}" alt="Competence MAE (Expert A)">
             </div>
         {% else %}
             <p>Run <code>python manage.py run_project3_task4</code></p>
+        {% endif %}
+
+        <h3>Expert B — Business Specialist</h3>
+        {% if task4b_ready %}
+            <p>Query budgets: {{ task4b_summary.query_budgets|join:", " }}</p>
+            <div class="p3-plots">
+                <img src="{{ task4b_summary.plot_urls.learning_curves }}" alt="Learning curves (Expert B)">
+                <img src="{{ task4b_summary.plot_urls.competence_mae }}" alt="Competence MAE (Expert B)">
+            </div>
+        {% else %}
+            <p>Run <code>python manage.py run_project3_expertB</code></p>
         {% endif %}
     </section>
 
@@ -184,15 +282,6 @@
             </div>
         {% else %}
             <p>Run Tasks 1 and 3 first to enable the human expert demo.</p>
-        {% endif %}
-    </section>
-
-    <section id="report" class="p3-section">
-        <h2>Download Report</h2>
-        {% if report_ready %}
-            <a class="p3-download" href="{% url 'project3:download_report' %}">Download PDF report</a>
-        {% else %}
-            <p>Run all tasks then: <code>python manage.py run_project3_phases5_10</code></p>
         {% endif %}
     </section>
 </div>

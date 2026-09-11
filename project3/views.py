@@ -7,7 +7,16 @@ from django.http import FileResponse, Http404
 from django.shortcuts import render
 
 from .artifact_loaders import load_task1_model, load_task3_deferral_model
-from .config import CLASS_NAMES, TASK1_DIR, TASK2_DIR, TASK3_DIR, TASK4_DIR
+from .config import (
+    CLASS_NAMES,
+    TASK1_DIR,
+    TASK2_DIR,
+    TASK2B_DIR,
+    TASK3_DIR,
+    TASK3B_DIR,
+    TASK4_DIR,
+    TASK4B_DIR,
+)
 from .data import load_ag_news_splits
 from .deferral_experiments import predict_learned_deferral
 from .forms import HumanExpertForm
@@ -59,11 +68,11 @@ def _load_task1_summary():
     return summary
 
 
-def _load_task2_summary():
-    summary_path = os.path.join(TASK2_DIR, "task2_summary.json")
-    metrics_path = os.path.join(TASK2_DIR, "task2_metrics.json")
+def _load_task2_summary(task_dir=TASK2_DIR, summary_filename="task2_summary.json", plots_subdir="task2"):
+    summary_path = os.path.join(task_dir, summary_filename)
+    metrics_path = os.path.join(task_dir, "task2_metrics.json")
 
-    if not os.path.exists(metrics_path):
+    if not os.path.exists(summary_path) and not os.path.exists(metrics_path):
         return None
 
     if os.path.exists(summary_path):
@@ -79,22 +88,22 @@ def _load_task2_summary():
         }
 
     if "ai_expert_comparison" not in summary:
-        comparison_path = os.path.join(TASK2_DIR, "task2_ai_comparison.json")
+        comparison_path = os.path.join(task_dir, "task2_ai_comparison.json")
         if os.path.exists(comparison_path):
             with open(comparison_path, encoding="utf-8") as handle:
                 summary["ai_expert_comparison"] = json.load(handle)
 
     summary["plot_urls"] = {
-        "test_confusion_matrix": settings.MEDIA_URL + "project3/experiments/task2/plots/test_confusion_matrix.png",
-        "test_per_class_recall": settings.MEDIA_URL + "project3/experiments/task2/plots/test_per_class_recall.png",
-        "test_ai_vs_expert": settings.MEDIA_URL + "project3/experiments/task2/plots/test_ai_vs_expert.png",
+        "test_confusion_matrix": settings.MEDIA_URL + f"project3/experiments/{plots_subdir}/plots/test_confusion_matrix.png",
+        "test_per_class_recall": settings.MEDIA_URL + f"project3/experiments/{plots_subdir}/plots/test_per_class_recall.png",
+        "test_ai_vs_expert": settings.MEDIA_URL + f"project3/experiments/{plots_subdir}/plots/test_ai_vs_expert.png",
     }
     return summary
 
 
-def _load_task3_summary():
-    summary_path = os.path.join(TASK3_DIR, "task3_summary.json")
-    metrics_path = os.path.join(TASK3_DIR, "task3_metrics.json")
+def _load_task3_summary(task_dir=TASK3_DIR, summary_filename="task3_summary.json", plots_subdir="task3"):
+    summary_path = os.path.join(task_dir, summary_filename)
+    metrics_path = os.path.join(task_dir, "task3_metrics.json")
 
     if not os.path.exists(metrics_path) and not os.path.exists(summary_path):
         return None
@@ -113,16 +122,16 @@ def _load_task3_summary():
     summary["best_team_accuracy"] = best
     summary["plot_urls"] = {
         "strategy_comparison": settings.MEDIA_URL
-        + "project3/experiments/task3/plots/strategy_comparison_test.png",
+        + f"project3/experiments/{plots_subdir}/plots/strategy_comparison_test.png",
         "threshold_search": settings.MEDIA_URL
-        + "project3/experiments/task3/plots/threshold_search_validation.png",
+        + f"project3/experiments/{plots_subdir}/plots/threshold_search_validation.png",
     }
     return summary
 
 
-def _load_task4_summary():
-    summary_path = os.path.join(TASK4_DIR, "task4_summary.json")
-    metrics_path = os.path.join(TASK4_DIR, "task4_metrics.json")
+def _load_task4_summary(task_dir=TASK4_DIR, summary_filename="task4_summary.json", plots_subdir="task4"):
+    summary_path = os.path.join(task_dir, summary_filename)
+    metrics_path = os.path.join(task_dir, "task4_metrics.json")
 
     if not os.path.exists(metrics_path) and not os.path.exists(summary_path):
         return None
@@ -145,9 +154,9 @@ def _load_task4_summary():
     summary["best_al_accuracy"] = best
     summary["plot_urls"] = {
         "learning_curves": settings.MEDIA_URL
-        + "project3/experiments/task4/plots/learning_curves_team_accuracy.png",
+        + f"project3/experiments/{plots_subdir}/plots/learning_curves_team_accuracy.png",
         "competence_mae": settings.MEDIA_URL
-        + "project3/experiments/task4/plots/learning_curves_competence_mae.png",
+        + f"project3/experiments/{plots_subdir}/plots/learning_curves_competence_mae.png",
     }
     return summary
 
@@ -210,6 +219,10 @@ def index(request):
     task3_summary = _load_task3_summary()
     task4_summary = _load_task4_summary()
 
+    task2b_summary = _load_task2_summary(TASK2B_DIR, "task2b_summary.json", "task2b")
+    task3b_summary = _load_task3_summary(TASK3B_DIR, "task3b_summary.json", "task3b")
+    task4b_summary = _load_task4_summary(TASK4B_DIR, "task4b_summary.json", "task4b")
+
     human_form = HumanExpertForm(request.POST or None)
     human_feedback = None
     human_demo = None
@@ -242,6 +255,12 @@ def index(request):
         "task3_ready": task3_summary is not None,
         "task4_summary": task4_summary,
         "task4_ready": task4_summary is not None,
+        "task2b_summary": task2b_summary,
+        "task2b_ready": task2b_summary is not None,
+        "task3b_summary": task3b_summary,
+        "task3b_ready": task3b_summary is not None,
+        "task4b_summary": task4b_summary,
+        "task4b_ready": task4b_summary is not None,
         "all_ready": all([task1_summary, task2_summary, task3_summary, task4_summary]),
         "human_form": human_form,
         "human_demo": human_demo,

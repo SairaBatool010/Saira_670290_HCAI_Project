@@ -1,0 +1,11 @@
+Django>=4.2,<5
+pandas
+numpy
+scikit-learn
+matplotlib
+scipy
+reportlab
+joblib
+datasets
+palmerpenguins
+seaborn

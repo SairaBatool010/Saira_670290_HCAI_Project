@@ -19,10 +19,10 @@ def index(request):
     projects = [
         #{"name": "Home", "url_name": "home:index"},
         #{"name": "Home 2", "url_name": "home:index"},
-        {"name": "Project 1", "url_name": "project1:index"},
-        {"name": "Project 2", "url_name": "project2:index"},
-        {"name": "Project 3", "url_name": "project3:index"},
-        {"name": "Project 4", "url_name": "project4:index"},
+        {"name": "Project 1: Supervised Learning Interface", "url_name": "project1:index"},
+        {"name": "Project 2: Explainability", "url_name": "project2:index"},
+        {"name": "Project 3: Active Learning for Learning-to-Defer", "url_name": "project3:index"},
+        {"name": "Project 4: Preference Elicitation", "url_name": "project4:index"},
     ]
     
     context = { 
@@ -30,4 +30,4 @@ def index(request):
         "projects": projects, 
     }
     
-    return HttpResponse(template.render(context, request))
+    return HttpResponse(template.render(context, request)) 

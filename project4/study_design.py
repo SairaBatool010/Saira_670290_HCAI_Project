@@ -52,9 +52,9 @@ STUDY_DESIGN = {
 }
 
 RANKING_MODEL_TEXT = (
-    "We extend the Bradley-Terry model to full rankings using the Plackett-Luce model. "
+    "The Bradley-Terry model is extended to full rankings using the Plackett-Luce model. "
     "For a ranking i<sub>1</sub> &gt; i<sub>2</sub> &gt; ... &gt; i<sub>n</sub> of n items (read "
-    "\"&gt;\" as \"preferred to\"), we decompose the probability of observing the entire order as "
+    "\"&gt;\" as \"preferred to\"), the probability of observing the entire order is decomposed as "
     "a sequence of independent choices, each picking the most preferred item among those not yet "
     "ranked:<br/><br/>"
     "P(ranking) = [product over k = 1 .. n of] exp(u<sub>ik</sub>) divided by the sum of "

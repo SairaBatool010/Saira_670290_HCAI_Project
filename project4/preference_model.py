@@ -34,7 +34,7 @@ def fit_preference_weights(
     MLE is only weakly identified: if the observed choices are (close to) perfectly
     separable along some direction, the unregularized MLE diverges to infinite weight
     magnitude (a well-known degeneracy of logistic-type likelihoods on separable data).
-    We add a Gaussian prior on w (equivalently, an L2 / ridge penalty on the objective),
+    A Gaussian prior on w is added (equivalently, an L2 / ridge penalty on the objective),
     which keeps the estimate finite and well-behaved even for a handful of responses.
     """
     num_features = feature_matrix.shape[1]

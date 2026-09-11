@@ -76,6 +76,12 @@ def _build_styles():
     styles.add(ParagraphStyle("BulletBody", parent=styles["Body"], spaceAfter=3))
     styles.add(
         ParagraphStyle(
+            "TableHeader", parent=styles["Normal"], fontSize=9, leading=11,
+            textColor=colors.white, fontName="Helvetica-Bold",
+        )
+    )
+    styles.add(
+        ParagraphStyle(
             "Caption", parent=styles["Normal"], fontSize=8.5, textColor=colors.HexColor("#666666"),
             alignment=TA_CENTER, spaceBefore=2, spaceAfter=10,
         )
@@ -115,7 +121,14 @@ def _numbered(items, styles):
 
 
 def _table(rows, styles, col_widths):
-    data = [[Paragraph(str(cell), styles["Body"]) for cell in row] for row in rows]
+    # The header row must use a dedicated white-text style: a Table cell's text color
+    # is controlled by the Paragraph's own style, not by the TableStyle "TEXTCOLOR"
+    # command below -- that command only affects plain-string cells, so wrapping every
+    # cell (including the header) in the black "Body" style silently overrides it,
+    # producing black text on the dark blue header background.
+    header_row = [Paragraph(str(cell), styles["TableHeader"]) for cell in rows[0]]
+    body_rows = [[Paragraph(str(cell), styles["Body"]) for cell in row] for row in rows[1:]]
+    data = [header_row] + body_rows
     table = Table(data, colWidths=col_widths)
     table.setStyle(
         TableStyle(
@@ -385,7 +398,7 @@ def generate_full_report():
                 "(the expert cannot see the true label to calibrate itself against it at inference time), not "
                 "a bug: a purely confusion-matrix-driven expert (sampling directly from the true label) could "
                 "hit the target profile exactly, but would not actually be reading the article's text to "
-                "reach its answer. We view the resulting gap as a more realistic model of a real domain "
+                "reach its answer. I view the resulting gap as a more realistic model of a real domain "
                 "expert, whose internal read of a difficult article's topic is itself sometimes wrong before "
                 "any deliberate confusion pattern kicks in.".format(
                     sci_diag=_pct(comp.get("Sci/Tech", 0)),
@@ -554,7 +567,7 @@ def generate_full_report():
         )
         story.append(
             Paragraph(
-                "This is not a degenerate result but a genuine, reproducible finding: we verified it by "
+                "This is not a degenerate result but a genuine, reproducible finding: I verified it by "
                 "scanning the full probability-cutoff range (not just the classifier's default threshold) "
                 "and validation team accuracy is <i>monotonically</i> maximized as the cutoff approaches 1 "
                 "(i.e., defer almost never). The root cause traces back to Task 2 — the expert is not just "
@@ -599,7 +612,7 @@ def generate_full_report():
         ld_b = task3b["strategies"]["learned_deferral"]
         ct_b = task3b["strategies"]["confidence_threshold"]
         always_ai_b = task3b["strategies"]["always_ai"]["test_official"]["team_accuracy"]
-        story.append(Paragraph("The hypothesis fails, and we can show exactly why", styles["SubHeading"]))
+        story.append(Paragraph("The hypothesis fails, and I can show exactly why", styles["SubHeading"]))
         story.append(
             Paragraph(
                 f"Despite Expert B genuinely beating the AI in Business by a verified "
@@ -607,8 +620,8 @@ def generate_full_report():
                 f"points (Task 2), the <b>learned deferral</b> model still converges to a "
                 f"{_pct(ld_b['test_official']['defer_rate'])} defer rate on the test set, and the "
                 f"<b>confidence-threshold</b> baseline again finds only a marginal, near break-even gain "
-                f"({always_ai_b*100:.2f}% &rarr; {ct_b['test_official']['team_accuracy']*100:.2f}%). We did "
-                "not stop at this result — we spent considerable additional effort trying to find a genuine "
+                f"({always_ai_b*100:.2f}% &rarr; {ct_b['test_official']['team_accuracy']*100:.2f}%). I did "
+                "not stop at this result — I spent considerable additional effort trying to find a genuine "
                 "gain, including: (a) a bug fix to the competence feature itself (it was conditioned on the "
                 "article's <i>true</i> class, which is not available at decision time -- corrected to "
                 "condition on the AI's <i>predicted</i> class instead); (b) an explicit uncertainty "
@@ -625,8 +638,8 @@ def generate_full_report():
                 "uncorrelated with AI errors) <b>-- correlated difficulty.</b> Both the AI and Expert B read "
                 "the same article text, so the articles that make the AI least confident tend to be "
                 "genuinely ambiguous, and a text-based expert reading that same ambiguous text struggles on "
-                "them too. We verified this directly: among the AI's least-confident predicted-Business "
-                "articles, the AI remains <i>more</i> accurate than Expert B at every percentile we checked, "
+                "them too. I verified this directly: among the AI's least-confident predicted-Business "
+                "articles, the AI remains <i>more</i> accurate than Expert B at every percentile I checked, "
                 "including the most extreme 1% tail (AI 41.4% vs. Expert B 34.5%, n=29). Expert B's strong "
                 "92%+ aggregate Business accuracy comes almost entirely from the easy, keyword-rich articles "
                 "the AI already classifies correctly and confidently -- exactly the articles a deferral "
@@ -875,7 +888,7 @@ def generate_full_report():
 
     # ---------------------------------------------------------- Findings & limitations
     story.append(Paragraph("Key Findings, Bugs Found, and Honest Limitations", styles["SectionHeading"]))
-    story.append(Paragraph("A bug we found and fixed while building this report", styles["SubHeading"]))
+    story.append(Paragraph("A bug found and fixed while building this report", styles["SubHeading"]))
     story.append(
         Paragraph(
             "The first version of the learned deferral model (Task 3) used a classifier's default 0.5 "
@@ -884,7 +897,7 @@ def generate_full_report():
             "the model deferred on exactly 0% of both the validation and test sets — silently making it "
             "behave identically to the always-AI baseline, and, since Task 4 reuses the same training "
             "routine, making <i>every</i> active learning strategy at <i>every</i> query budget look "
-            "identical too. We fixed this by (a) training with <font face='Courier'>class_weight="
+            "identical too. I fixed this by (a) training with <font face='Courier'>class_weight="
             "'balanced'</font> and (b) tuning the decision cutoff directly against team accuracy (the "
             "metric that matters), the same way the confidence-threshold baseline already did — and, for "
             "Task 4, tuning that cutoff only on the queried subset itself, respecting the budget "
@@ -898,11 +911,11 @@ def generate_full_report():
             "Fixing the bug did not make deferral “work” in the sense of a large accuracy gain — "
             "it revealed that, for Expert A, near-zero deferral genuinely is close to optimal given this "
             "expert's overall competence profile, even after giving the learned model an expert-competence "
-            "feature it did not have before. We took this seriously enough to run the natural follow-up "
-            "experiment directly, rather than only speculating about it: we built Expert B, a specialist "
+            "feature it did not have before. I took this seriously enough to run the natural follow-up "
+            "experiment directly, rather than only speculating about it: I built Expert B, a specialist "
             "verified to genuinely and substantially beat the AI in Business (Task 2), and re-ran Tasks 3-4 "
             "against it. The hypothesis that a complementary specialist would let a learned deferral policy "
-            "capture real value <b>also failed</b> — and we were able to identify a second, independent, and "
+            "capture real value <b>also failed</b> — and I was able to identify a second, independent, and "
             "more subtle reason why: correlated difficulty (Task 3, “Expert B”). The AI and any text-based "
             "expert share the same evidence (the article text), so the specific articles that make the AI "
             "uncertain are also disproportionately hard for a text-based expert, even a highly accurate one "
@@ -931,7 +944,7 @@ def generate_full_report():
                 "have knowledge genuinely independent of surface text patterns (e.g. industry context, "
                 "numerical reasoning about figures in the article) in a way Expert B's text-only design "
                 "cannot capture -- so a real human might not suffer the same correlated-difficulty failure "
-                "mode we found here. This is itself a testable, worthwhile question for Task 5's interactive "
+                "mode I found here. This is itself a testable, worthwhile question for Task 5's interactive "
                 "interface.",
                 "The classifier and both experts are classical bag-of-words models reading the same "
                 "vectorized text; this is precisely the condition that produces correlated difficulty. A "

@@ -17,7 +17,7 @@ def _team_predictions(ai_pred, expert_pred, defer_decisions):
 
 
 def _per_class_defer_rate(y_true, defer_decisions):
-    """Defer rate broken down by the article's true class -- lets us check whether a
+    """Defer rate broken down by the article's true class -- shows whether a
     deferral policy concentrates its deferrals where the expert is actually strong,
     rather than deferring uniformly at random across classes."""
     rates = {}
@@ -94,7 +94,7 @@ def tune_probability_threshold(probabilities, y_true, ai_pred, expert_pred, thre
     classifier's default 0.5 cutoff on predict() almost never fires: the fitted
     probability of the positive class rarely exceeds 0.5 even when it is the
     single best-scoring class among cases worth deferring. Scanning the cutoff
-    directly against team accuracy (the metric we actually care about) avoids
+    directly against team accuracy (the metric that actually matters) avoids
     this and mirrors the confidence-threshold baseline's own tuning approach.
     """
     if thresholds is None:
@@ -118,7 +118,7 @@ def per_class_accuracy(condition_labels, y_true, y_pred, num_classes):
 
     For the deferral feature this must be conditioned on the AI's *predicted* class
     (condition_labels = ai_pred), not the article's true class: at inference time the
-    true label is exactly what we don't have, only the AI's prediction. Conditioning
+    true label is exactly what is unavailable, only the AI's prediction. Conditioning
     on the true label instead silently mixes in every other true class's articles that
     the AI *misclassified* as this one -- a population the expert's competence for the
     true class says nothing about, and on which the expert has no special reliability.
