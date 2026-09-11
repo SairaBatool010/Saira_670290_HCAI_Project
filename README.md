@@ -24,6 +24,7 @@ cd Saira_670290_HCAI_Project
 python -m venv venv
 venv\Scripts\activate        # Windows
 # source venv/bin/activate   # macOS / Linux
+python -m pip install --upgrade pip
 
 pip install -r requirements.txt
 
