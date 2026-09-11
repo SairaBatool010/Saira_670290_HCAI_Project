@@ -19,7 +19,7 @@ different aspect of human-AI collaboration, accessible from a single shared home
 
 ```bash
 git clone https://github.com/SairaBatool010//Saira_670290_HCAI_Project.git
-cd HCAI_Project_Saira_Batool_2026
+cd Saira_670290_HCAI_Project
 
 python -m venv venv
 venv\Scripts\activate        # Windows
