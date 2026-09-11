@@ -1,0 +1,16 @@
+{
+  "random_state": 42,
+  "val_size": 0.1,
+  "best_params": {
+    "classifier__C": 1.0,
+    "vectorizer__max_features": 20000,
+    "vectorizer__min_df": 5,
+    "vectorizer__ngram_range": [
+      1,
+      2
+    ],
+    "vectorizer__stop_words": "english",
+    "vectorizer__sublinear_tf": false
+  },
+  "model_type": "TF-IDF + LogisticRegression"
+}

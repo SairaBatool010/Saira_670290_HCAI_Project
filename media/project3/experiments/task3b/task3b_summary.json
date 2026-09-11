@@ -1,0 +1,178 @@
+{
+  "artifact_paths": {
+    "metrics_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task3b\\task3_metrics.json",
+    "config_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task3b\\task3_config.json",
+    "model_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task3b\\task3_deferral_model.joblib",
+    "plots_dir": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task3b\\plots"
+  },
+  "best_threshold": 0.35000000000000003,
+  "learned_deferral_threshold": 0.99,
+  "strategies": {
+    "always_ai": {
+      "description": "Baseline: AI handles every article.",
+      "validation": {
+        "team_accuracy": 0.9419166666666666,
+        "ai_accuracy": 0.9419166666666666,
+        "expert_accuracy": 0.4355,
+        "defer_rate": 0.0,
+        "coverage": 1.0,
+        "ai_handled_accuracy": 0.9419166666666666,
+        "deferred_accuracy": 0.0,
+        "defer_helpful_count": 0,
+        "defer_unnecessary_count": 0,
+        "defer_precision": 0.0,
+        "defer_recall": 0.0,
+        "per_class_defer_rate": {
+          "World": 0.0,
+          "Sports": 0.0,
+          "Business": 0.0,
+          "Sci/Tech": 0.0
+        }
+      },
+      "test_official": {
+        "team_accuracy": 0.9192105263157895,
+        "ai_accuracy": 0.9192105263157895,
+        "expert_accuracy": 0.44263157894736843,
+        "defer_rate": 0.0,
+        "coverage": 1.0,
+        "ai_handled_accuracy": 0.9192105263157895,
+        "deferred_accuracy": 0.0,
+        "defer_helpful_count": 0,
+        "defer_unnecessary_count": 0,
+        "defer_precision": 0.0,
+        "defer_recall": 0.0,
+        "per_class_defer_rate": {
+          "World": 0.0,
+          "Sports": 0.0,
+          "Business": 0.0,
+          "Sci/Tech": 0.0
+        }
+      }
+    },
+    "always_expert": {
+      "description": "Baseline: defer every article to the expert.",
+      "validation": {
+        "team_accuracy": 0.4355,
+        "ai_accuracy": 0.9419166666666666,
+        "expert_accuracy": 0.4355,
+        "defer_rate": 1.0,
+        "coverage": 0.0,
+        "ai_handled_accuracy": 0.0,
+        "deferred_accuracy": 0.4355,
+        "defer_helpful_count": 209,
+        "defer_unnecessary_count": 6286,
+        "defer_precision": 1.0,
+        "defer_recall": 0.017416666666666667,
+        "per_class_defer_rate": {
+          "World": 1.0,
+          "Sports": 1.0,
+          "Business": 1.0,
+          "Sci/Tech": 1.0
+        }
+      },
+      "test_official": {
+        "team_accuracy": 0.44263157894736843,
+        "ai_accuracy": 0.9192105263157895,
+        "expert_accuracy": 0.44263157894736843,
+        "defer_rate": 1.0,
+        "coverage": 0.0,
+        "ai_handled_accuracy": 0.0,
+        "deferred_accuracy": 0.44263157894736843,
+        "defer_helpful_count": 184,
+        "defer_unnecessary_count": 3806,
+        "defer_precision": 1.0,
+        "defer_recall": 0.024210526315789474,
+        "per_class_defer_rate": {
+          "World": 1.0,
+          "Sports": 1.0,
+          "Business": 1.0,
+          "Sci/Tech": 1.0
+        }
+      }
+    },
+    "confidence_threshold": {
+      "description": "Defer when AI confidence < 0.350 (threshold tuned on validation).",
+      "validation": {
+        "team_accuracy": 0.9421666666666667,
+        "ai_accuracy": 0.9419166666666666,
+        "expert_accuracy": 0.4355,
+        "defer_rate": 0.0016666666666666668,
+        "coverage": 0.9983333333333333,
+        "ai_handled_accuracy": 0.9431552587646077,
+        "deferred_accuracy": 0.35,
+        "defer_helpful_count": 5,
+        "defer_unnecessary_count": 2,
+        "defer_precision": 0.0013394565633371603,
+        "defer_recall": 0.25,
+        "per_class_defer_rate": {
+          "World": 0.0023333333333333335,
+          "Sports": 0.0003333333333333333,
+          "Business": 0.002,
+          "Sci/Tech": 0.002
+        }
+      },
+      "test_official": {
+        "team_accuracy": 0.9194736842105263,
+        "ai_accuracy": 0.9192105263157895,
+        "expert_accuracy": 0.44263157894736843,
+        "defer_rate": 0.002763157894736842,
+        "coverage": 0.9972368421052632,
+        "ai_handled_accuracy": 0.920965826626204,
+        "deferred_accuracy": 0.38095238095238093,
+        "defer_helpful_count": 6,
+        "defer_unnecessary_count": 4,
+        "defer_precision": 0.0023781212841854932,
+        "defer_recall": 0.2857142857142857,
+        "per_class_defer_rate": {
+          "World": 0.003157894736842105,
+          "Sports": 0.003157894736842105,
+          "Business": 0.002631578947368421,
+          "Sci/Tech": 0.002105263157894737
+        }
+      },
+      "best_threshold": 0.35000000000000003
+    },
+    "learned_deferral": {
+      "description": "Logistic regression deferral model (class_weight=balanced) using AI confidence, entropy, margin, predicted class, and the expert's measured per-class competence (from train_fit) as features, with its deferral probability cutoff (0.990) tuned on validation team accuracy rather than a default 0.5 cutoff. Trained on train_fit with historical expert outcomes; inference never uses the expert answer.",
+      "validation": {
+        "team_accuracy": 0.9419166666666666,
+        "ai_accuracy": 0.9419166666666666,
+        "expert_accuracy": 0.4355,
+        "defer_rate": 0.0,
+        "coverage": 1.0,
+        "ai_handled_accuracy": 0.9419166666666666,
+        "deferred_accuracy": 0.0,
+        "defer_helpful_count": 0,
+        "defer_unnecessary_count": 0,
+        "defer_precision": 0.0,
+        "defer_recall": 0.0,
+        "per_class_defer_rate": {
+          "World": 0.0,
+          "Sports": 0.0,
+          "Business": 0.0,
+          "Sci/Tech": 0.0
+        }
+      },
+      "test_official": {
+        "team_accuracy": 0.9192105263157895,
+        "ai_accuracy": 0.9192105263157895,
+        "expert_accuracy": 0.44263157894736843,
+        "defer_rate": 0.0,
+        "coverage": 1.0,
+        "ai_handled_accuracy": 0.9192105263157895,
+        "deferred_accuracy": 0.0,
+        "defer_helpful_count": 0,
+        "defer_unnecessary_count": 0,
+        "defer_precision": 0.0,
+        "defer_recall": 0.0,
+        "per_class_defer_rate": {
+          "World": 0.0,
+          "Sports": 0.0,
+          "Business": 0.0,
+          "Sci/Tech": 0.0
+        }
+      },
+      "best_threshold": 0.99
+    }
+  }
+}

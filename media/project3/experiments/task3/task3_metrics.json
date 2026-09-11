@@ -1,0 +1,1036 @@
+{
+  "strategies": {
+    "always_ai": {
+      "description": "Baseline: AI handles every article.",
+      "validation": {
+        "team_accuracy": 0.9419166666666666,
+        "ai_accuracy": 0.9419166666666666,
+        "expert_accuracy": 0.62975,
+        "defer_rate": 0.0,
+        "coverage": 1.0,
+        "ai_handled_accuracy": 0.9419166666666666,
+        "deferred_accuracy": 0.0,
+        "defer_helpful_count": 0,
+        "defer_unnecessary_count": 0,
+        "defer_precision": 0.0,
+        "defer_recall": 0.0,
+        "per_class_defer_rate": {
+          "World": 0.0,
+          "Sports": 0.0,
+          "Business": 0.0,
+          "Sci/Tech": 0.0
+        }
+      },
+      "test_official": {
+        "team_accuracy": 0.9192105263157895,
+        "ai_accuracy": 0.9192105263157895,
+        "expert_accuracy": 0.6311842105263158,
+        "defer_rate": 0.0,
+        "coverage": 1.0,
+        "ai_handled_accuracy": 0.9192105263157895,
+        "deferred_accuracy": 0.0,
+        "defer_helpful_count": 0,
+        "defer_unnecessary_count": 0,
+        "defer_precision": 0.0,
+        "defer_recall": 0.0,
+        "per_class_defer_rate": {
+          "World": 0.0,
+          "Sports": 0.0,
+          "Business": 0.0,
+          "Sci/Tech": 0.0
+        }
+      }
+    },
+    "always_expert": {
+      "description": "Baseline: defer every article to the expert.",
+      "validation": {
+        "team_accuracy": 0.62975,
+        "ai_accuracy": 0.9419166666666666,
+        "expert_accuracy": 0.62975,
+        "defer_rate": 1.0,
+        "coverage": 0.0,
+        "ai_handled_accuracy": 0.0,
+        "deferred_accuracy": 0.62975,
+        "defer_helpful_count": 171,
+        "defer_unnecessary_count": 3917,
+        "defer_precision": 1.0,
+        "defer_recall": 0.01425,
+        "per_class_defer_rate": {
+          "World": 1.0,
+          "Sports": 1.0,
+          "Business": 1.0,
+          "Sci/Tech": 1.0
+        }
+      },
+      "test_official": {
+        "team_accuracy": 0.6311842105263158,
+        "ai_accuracy": 0.9192105263157895,
+        "expert_accuracy": 0.6311842105263158,
+        "defer_rate": 1.0,
+        "coverage": 0.0,
+        "ai_handled_accuracy": 0.0,
+        "deferred_accuracy": 0.6311842105263158,
+        "defer_helpful_count": 159,
+        "defer_unnecessary_count": 2348,
+        "defer_precision": 1.0,
+        "defer_recall": 0.020921052631578948,
+        "per_class_defer_rate": {
+          "World": 1.0,
+          "Sports": 1.0,
+          "Business": 1.0,
+          "Sci/Tech": 1.0
+        }
+      }
+    },
+    "confidence_threshold": {
+      "description": "Defer when AI confidence < 0.350 (threshold tuned on validation).",
+      "validation": {
+        "team_accuracy": 0.9420833333333334,
+        "ai_accuracy": 0.9419166666666666,
+        "expert_accuracy": 0.62975,
+        "defer_rate": 0.0016666666666666668,
+        "coverage": 0.9983333333333333,
+        "ai_handled_accuracy": 0.9431552587646077,
+        "deferred_accuracy": 0.3,
+        "defer_helpful_count": 3,
+        "defer_unnecessary_count": 1,
+        "defer_precision": 0.0007939658594680428,
+        "defer_recall": 0.15,
+        "per_class_defer_rate": {
+          "World": 0.0023333333333333335,
+          "Sports": 0.0003333333333333333,
+          "Business": 0.002,
+          "Sci/Tech": 0.002
+        }
+      },
+      "test_official": {
+        "team_accuracy": 0.9196052631578947,
+        "ai_accuracy": 0.9192105263157895,
+        "expert_accuracy": 0.6311842105263158,
+        "defer_rate": 0.002763157894736842,
+        "coverage": 0.9972368421052632,
+        "ai_handled_accuracy": 0.920965826626204,
+        "deferred_accuracy": 0.42857142857142855,
+        "defer_helpful_count": 5,
+        "defer_unnecessary_count": 2,
+        "defer_precision": 0.001876172607879925,
+        "defer_recall": 0.23809523809523808,
+        "per_class_defer_rate": {
+          "World": 0.003157894736842105,
+          "Sports": 0.003157894736842105,
+          "Business": 0.002631578947368421,
+          "Sci/Tech": 0.002105263157894737
+        }
+      },
+      "best_threshold": 0.35000000000000003
+    },
+    "learned_deferral": {
+      "description": "Logistic regression deferral model (class_weight=balanced) using AI confidence, entropy, margin, predicted class, and the expert's measured per-class competence (from train_fit) as features, with its deferral probability cutoff (0.975) tuned on validation team accuracy rather than a default 0.5 cutoff. Trained on train_fit with historical expert outcomes; inference never uses the expert answer.",
+      "validation": {
+        "team_accuracy": 0.9419166666666666,
+        "ai_accuracy": 0.9419166666666666,
+        "expert_accuracy": 0.62975,
+        "defer_rate": 0.00016666666666666666,
+        "coverage": 0.9998333333333334,
+        "ai_handled_accuracy": 0.9420736789464911,
+        "deferred_accuracy": 0.0,
+        "defer_helpful_count": 0,
+        "defer_unnecessary_count": 0,
+        "defer_precision": 0.0,
+        "defer_recall": 0.0,
+        "per_class_defer_rate": {
+          "World": 0.0003333333333333333,
+          "Sports": 0.0,
+          "Business": 0.0,
+          "Sci/Tech": 0.0003333333333333333
+        }
+      },
+      "test_official": {
+        "team_accuracy": 0.9192105263157895,
+        "ai_accuracy": 0.9192105263157895,
+        "expert_accuracy": 0.6311842105263158,
+        "defer_rate": 0.0,
+        "coverage": 1.0,
+        "ai_handled_accuracy": 0.9192105263157895,
+        "deferred_accuracy": 0.0,
+        "defer_helpful_count": 0,
+        "defer_unnecessary_count": 0,
+        "defer_precision": 0.0,
+        "defer_recall": 0.0,
+        "per_class_defer_rate": {
+          "World": 0.0,
+          "Sports": 0.0,
+          "Business": 0.0,
+          "Sci/Tech": 0.0
+        }
+      },
+      "best_threshold": 0.975
+    }
+  },
+  "best_threshold": 0.35000000000000003,
+  "threshold_search": [
+    {
+      "threshold": 0.2,
+      "team_accuracy": 0.9419166666666666,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.0,
+      "coverage": 1.0,
+      "ai_handled_accuracy": 0.9419166666666666,
+      "deferred_accuracy": 0.0,
+      "defer_helpful_count": 0,
+      "defer_unnecessary_count": 0,
+      "defer_precision": 0.0,
+      "defer_recall": 0.0,
+      "per_class_defer_rate": {
+        "World": 0.0,
+        "Sports": 0.0,
+        "Business": 0.0,
+        "Sci/Tech": 0.0
+      }
+    },
+    {
+      "threshold": 0.25,
+      "team_accuracy": 0.9419166666666666,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.0,
+      "coverage": 1.0,
+      "ai_handled_accuracy": 0.9419166666666666,
+      "deferred_accuracy": 0.0,
+      "defer_helpful_count": 0,
+      "defer_unnecessary_count": 0,
+      "defer_precision": 0.0,
+      "defer_recall": 0.0,
+      "per_class_defer_rate": {
+        "World": 0.0,
+        "Sports": 0.0,
+        "Business": 0.0,
+        "Sci/Tech": 0.0
+      }
+    },
+    {
+      "threshold": 0.3,
+      "team_accuracy": 0.942,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.00025,
+      "coverage": 0.99975,
+      "ai_handled_accuracy": 0.9420688505459698,
+      "deferred_accuracy": 0.6666666666666666,
+      "defer_helpful_count": 1,
+      "defer_unnecessary_count": 0,
+      "defer_precision": 0.00026465528648934763,
+      "defer_recall": 0.3333333333333333,
+      "per_class_defer_rate": {
+        "World": 0.0003333333333333333,
+        "Sports": 0.0,
+        "Business": 0.0003333333333333333,
+        "Sci/Tech": 0.0003333333333333333
+      }
+    },
+    {
+      "threshold": 0.35,
+      "team_accuracy": 0.9420833333333334,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.0016666666666666668,
+      "coverage": 0.9983333333333333,
+      "ai_handled_accuracy": 0.9431552587646077,
+      "deferred_accuracy": 0.3,
+      "defer_helpful_count": 3,
+      "defer_unnecessary_count": 1,
+      "defer_precision": 0.0007939658594680428,
+      "defer_recall": 0.15,
+      "per_class_defer_rate": {
+        "World": 0.0023333333333333335,
+        "Sports": 0.0003333333333333333,
+        "Business": 0.002,
+        "Sci/Tech": 0.002
+      }
+    },
+    {
+      "threshold": 0.4,
+      "team_accuracy": 0.9416666666666667,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.007166666666666667,
+      "coverage": 0.9928333333333333,
+      "ai_handled_accuracy": 0.9460298808124895,
+      "deferred_accuracy": 0.3372093023255814,
+      "defer_helpful_count": 16,
+      "defer_unnecessary_count": 19,
+      "defer_precision": 0.0038375016540955404,
+      "defer_recall": 0.18604651162790697,
+      "per_class_defer_rate": {
+        "World": 0.009666666666666667,
+        "Sports": 0.0016666666666666668,
+        "Business": 0.009333333333333334,
+        "Sci/Tech": 0.008
+      }
+    },
+    {
+      "threshold": 0.45,
+      "team_accuracy": 0.9394166666666667,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.0145,
+      "coverage": 0.9855,
+      "ai_handled_accuracy": 0.9487569761542364,
+      "deferred_accuracy": 0.3045977011494253,
+      "defer_helpful_count": 27,
+      "defer_unnecessary_count": 57,
+      "defer_precision": 0.007013365091967712,
+      "defer_recall": 0.15517241379310345,
+      "per_class_defer_rate": {
+        "World": 0.01633333333333333,
+        "Sports": 0.005666666666666667,
+        "Business": 0.017333333333333333,
+        "Sci/Tech": 0.018666666666666668
+      }
+    },
+    {
+      "threshold": 0.5,
+      "team_accuracy": 0.93625,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.027833333333333335,
+      "coverage": 0.9721666666666666,
+      "ai_handled_accuracy": 0.953283044745414,
+      "deferred_accuracy": 0.3413173652694611,
+      "defer_helpful_count": 45,
+      "defer_unnecessary_count": 113,
+      "defer_precision": 0.015085351329892815,
+      "defer_recall": 0.1347305389221557,
+      "per_class_defer_rate": {
+        "World": 0.029,
+        "Sports": 0.012333333333333333,
+        "Business": 0.03266666666666666,
+        "Sci/Tech": 0.037333333333333336
+      }
+    },
+    {
+      "threshold": 0.55,
+      "team_accuracy": 0.9294166666666667,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.04841666666666666,
+      "coverage": 0.9515833333333333,
+      "ai_handled_accuracy": 0.9593659689990367,
+      "deferred_accuracy": 0.3407917383820998,
+      "defer_helpful_count": 67,
+      "defer_unnecessary_count": 217,
+      "defer_precision": 0.026200873362445413,
+      "defer_recall": 0.1153184165232358,
+      "per_class_defer_rate": {
+        "World": 0.04733333333333333,
+        "Sports": 0.02,
+        "Business": 0.059,
+        "Sci/Tech": 0.06733333333333333
+      }
+    },
+    {
+      "threshold": 0.6,
+      "team_accuracy": 0.921,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.07125,
+      "coverage": 0.92875,
+      "ai_handled_accuracy": 0.9648272768057425,
+      "deferred_accuracy": 0.3497076023391813,
+      "defer_helpful_count": 90,
+      "defer_unnecessary_count": 341,
+      "defer_precision": 0.03956596533015747,
+      "defer_recall": 0.10526315789473684,
+      "per_class_defer_rate": {
+        "World": 0.07133333333333333,
+        "Sports": 0.029333333333333333,
+        "Business": 0.08966666666666667,
+        "Sci/Tech": 0.09466666666666666
+      }
+    },
+    {
+      "threshold": 0.65,
+      "team_accuracy": 0.9114166666666667,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.09758333333333333,
+      "coverage": 0.9024166666666666,
+      "ai_handled_accuracy": 0.9696186166774402,
+      "deferred_accuracy": 0.3731853116994022,
+      "defer_helpful_count": 108,
+      "defer_unnecessary_count": 474,
+      "defer_precision": 0.057827180097922454,
+      "defer_recall": 0.09222886421861656,
+      "per_class_defer_rate": {
+        "World": 0.09266666666666666,
+        "Sports": 0.042333333333333334,
+        "Business": 0.12833333333333333,
+        "Sci/Tech": 0.127
+      }
+    },
+    {
+      "threshold": 0.7,
+      "team_accuracy": 0.9008333333333334,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.12558333333333332,
+      "coverage": 0.8744166666666666,
+      "ai_handled_accuracy": 0.974173258362718,
+      "deferred_accuracy": 0.39017916390179164,
+      "defer_helpful_count": 121,
+      "defer_unnecessary_count": 614,
+      "defer_precision": 0.0778086542278682,
+      "defer_recall": 0.08029197080291971,
+      "per_class_defer_rate": {
+        "World": 0.11666666666666667,
+        "Sports": 0.05733333333333333,
+        "Business": 0.164,
+        "Sci/Tech": 0.16433333333333333
+      }
+    },
+    {
+      "threshold": 0.75,
+      "team_accuracy": 0.8873333333333333,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.1625,
+      "coverage": 0.8375,
+      "ai_handled_accuracy": 0.9791044776119403,
+      "deferred_accuracy": 0.41435897435897434,
+      "defer_helpful_count": 137,
+      "defer_unnecessary_count": 792,
+      "defer_precision": 0.10692073574169644,
+      "defer_recall": 0.07025641025641026,
+      "per_class_defer_rate": {
+        "World": 0.15066666666666667,
+        "Sports": 0.07833333333333334,
+        "Business": 0.211,
+        "Sci/Tech": 0.21
+      }
+    },
+    {
+      "threshold": 0.8,
+      "team_accuracy": 0.86875,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.20925,
+      "coverage": 0.79075,
+      "ai_handled_accuracy": 0.9831383707450733,
+      "deferred_accuracy": 0.4364794902429311,
+      "defer_helpful_count": 147,
+      "defer_unnecessary_count": 1025,
+      "defer_precision": 0.1450310969961625,
+      "defer_recall": 0.05854241338112306,
+      "per_class_defer_rate": {
+        "World": 0.186,
+        "Sports": 0.10966666666666666,
+        "Business": 0.268,
+        "Sci/Tech": 0.2733333333333333
+      }
+    },
+    {
+      "threshold": 0.85,
+      "team_accuracy": 0.8459166666666667,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.27008333333333334,
+      "coverage": 0.7299166666666667,
+      "ai_handled_accuracy": 0.9865281424820185,
+      "deferred_accuracy": 0.46590558469608145,
+      "defer_helpful_count": 151,
+      "defer_unnecessary_count": 1303,
+      "defer_precision": 0.19981474129945745,
+      "defer_recall": 0.04659055846960815,
+      "per_class_defer_rate": {
+        "World": 0.24,
+        "Sports": 0.15433333333333332,
+        "Business": 0.33066666666666666,
+        "Sci/Tech": 0.35533333333333333
+      }
+    },
+    {
+      "threshold": 0.9,
+      "team_accuracy": 0.81,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.36883333333333335,
+      "coverage": 0.6311666666666667,
+      "ai_handled_accuracy": 0.9902297332981251,
+      "deferred_accuracy": 0.5015815634884772,
+      "defer_helpful_count": 158,
+      "defer_unnecessary_count": 1741,
+      "defer_precision": 0.2937673680031759,
+      "defer_recall": 0.03569814731134207,
+      "per_class_defer_rate": {
+        "World": 0.32066666666666666,
+        "Sports": 0.242,
+        "Business": 0.44066666666666665,
+        "Sci/Tech": 0.472
+      }
+    },
+    {
+      "threshold": 0.95,
+      "team_accuracy": 0.7589166666666667,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.52725,
+      "coverage": 0.47275,
+      "ai_handled_accuracy": 0.9941829719725013,
+      "deferred_accuracy": 0.5479690216532321,
+      "defer_helpful_count": 165,
+      "defer_unnecessary_count": 2361,
+      "defer_precision": 0.4587799391292841,
+      "defer_recall": 0.026078710289236605,
+      "per_class_defer_rate": {
+        "World": 0.45366666666666666,
+        "Sports": 0.4176666666666667,
+        "Business": 0.6103333333333333,
+        "Sci/Tech": 0.6273333333333333
+      }
+    }
+  ],
+  "learned_deferral_threshold": 0.975,
+  "learned_deferral_threshold_search": [
+    {
+      "threshold": 0.05,
+      "team_accuracy": 0.6705,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.7661666666666667,
+      "coverage": 0.23383333333333334,
+      "ai_handled_accuracy": 0.9939415538132573,
+      "deferred_accuracy": 0.571785947356972,
+      "defer_helpful_count": 171,
+      "defer_unnecessary_count": 3428,
+      "defer_precision": 0.6956464205372502,
+      "defer_recall": 0.01859908636067,
+      "per_class_defer_rate": {
+        "World": 0.9953333333333333,
+        "Sports": 0.3446666666666667,
+        "Business": 0.725,
+        "Sci/Tech": 0.9996666666666667
+      }
+    },
+    {
+      "threshold": 0.1,
+      "team_accuracy": 0.7373333333333333,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.5295833333333333,
+      "coverage": 0.47041666666666665,
+      "ai_handled_accuracy": 0.9918511957484499,
+      "deferred_accuracy": 0.5112509834775767,
+      "defer_helpful_count": 168,
+      "defer_unnecessary_count": 2623,
+      "defer_precision": 0.42993251290194523,
+      "defer_recall": 0.026435877261998426,
+      "per_class_defer_rate": {
+        "World": 0.44366666666666665,
+        "Sports": 0.18566666666666667,
+        "Business": 0.49033333333333334,
+        "Sci/Tech": 0.9986666666666667
+      }
+    },
+    {
+      "threshold": 0.15,
+      "team_accuracy": 0.7598333333333334,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.4518333333333333,
+      "coverage": 0.5481666666666667,
+      "ai_handled_accuracy": 0.9904226208574035,
+      "deferred_accuracy": 0.4800811508668388,
+      "defer_helpful_count": 167,
+      "defer_unnecessary_count": 2352,
+      "defer_precision": 0.34444885536588593,
+      "defer_recall": 0.030800442641091847,
+      "per_class_defer_rate": {
+        "World": 0.3363333333333333,
+        "Sports": 0.134,
+        "Business": 0.3963333333333333,
+        "Sci/Tech": 0.9406666666666667
+      }
+    },
+    {
+      "threshold": 0.2,
+      "team_accuracy": 0.79625,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.36441666666666667,
+      "coverage": 0.6355833333333333,
+      "ai_handled_accuracy": 0.9889864953454831,
+      "deferred_accuracy": 0.4600960439057855,
+      "defer_helpful_count": 163,
+      "defer_unnecessary_count": 1911,
+      "defer_precision": 0.2662432182082837,
+      "defer_recall": 0.037274182483420994,
+      "per_class_defer_rate": {
+        "World": 0.2776666666666667,
+        "Sports": 0.10933333333333334,
+        "Business": 0.3443333333333333,
+        "Sci/Tech": 0.7263333333333334
+      }
+    },
+    {
+      "threshold": 0.25,
+      "team_accuracy": 0.8180833333333334,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.3120833333333333,
+      "coverage": 0.6879166666666666,
+      "ai_handled_accuracy": 0.9881284070260449,
+      "deferred_accuracy": 0.4432576769025367,
+      "defer_helpful_count": 162,
+      "defer_unnecessary_count": 1648,
+      "defer_precision": 0.21966388778615853,
+      "defer_recall": 0.043257676902536714,
+      "per_class_defer_rate": {
+        "World": 0.24,
+        "Sports": 0.09333333333333334,
+        "Business": 0.30733333333333335,
+        "Sci/Tech": 0.6076666666666667
+      }
+    },
+    {
+      "threshold": 0.3,
+      "team_accuracy": 0.8345833333333333,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.2753333333333333,
+      "coverage": 0.7246666666666667,
+      "ai_handled_accuracy": 0.9865455381784729,
+      "deferred_accuracy": 0.4346246973365617,
+      "defer_helpful_count": 159,
+      "defer_unnecessary_count": 1447,
+      "defer_precision": 0.1900224956993516,
+      "defer_recall": 0.04812348668280872,
+      "per_class_defer_rate": {
+        "World": 0.21233333333333335,
+        "Sports": 0.078,
+        "Business": 0.2783333333333333,
+        "Sci/Tech": 0.5326666666666666
+      }
+    },
+    {
+      "threshold": 0.35,
+      "team_accuracy": 0.8493333333333334,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.24508333333333332,
+      "coverage": 0.7549166666666667,
+      "ai_handled_accuracy": 0.9855392427420245,
+      "deferred_accuracy": 0.4297857871472288,
+      "defer_helpful_count": 157,
+      "defer_unnecessary_count": 1268,
+      "defer_precision": 0.1672621410612677,
+      "defer_recall": 0.05338320299217953,
+      "per_class_defer_rate": {
+        "World": 0.19066666666666668,
+        "Sports": 0.06566666666666666,
+        "Business": 0.25833333333333336,
+        "Sci/Tech": 0.4656666666666667
+      }
+    },
+    {
+      "threshold": 0.4,
+      "team_accuracy": 0.85925,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.22316666666666668,
+      "coverage": 0.7768333333333334,
+      "ai_handled_accuracy": 0.9843381248659085,
+      "deferred_accuracy": 0.4238237490664675,
+      "defer_helpful_count": 154,
+      "defer_unnecessary_count": 1146,
+      "defer_precision": 0.1501918750827048,
+      "defer_recall": 0.05750560119492158,
+      "per_class_defer_rate": {
+        "World": 0.17266666666666666,
+        "Sports": 0.058333333333333334,
+        "Business": 0.239,
+        "Sci/Tech": 0.4226666666666667
+      }
+    },
+    {
+      "threshold": 0.45,
+      "team_accuracy": 0.8688333333333333,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.20175,
+      "coverage": 0.79825,
+      "ai_handled_accuracy": 0.9830880050109615,
+      "deferred_accuracy": 0.4167699297810822,
+      "defer_helpful_count": 151,
+      "defer_unnecessary_count": 1028,
+      "defer_precision": 0.13351859203387587,
+      "defer_recall": 0.06237092110698059,
+      "per_class_defer_rate": {
+        "World": 0.15966666666666668,
+        "Sports": 0.051666666666666666,
+        "Business": 0.22066666666666668,
+        "Sci/Tech": 0.375
+      }
+    },
+    {
+      "threshold": 0.5,
+      "team_accuracy": 0.878,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.18116666666666667,
+      "coverage": 0.8188333333333333,
+      "ai_handled_accuracy": 0.9814777121921433,
+      "deferred_accuracy": 0.41030358785648574,
+      "defer_helpful_count": 148,
+      "defer_unnecessary_count": 915,
+      "defer_precision": 0.11803625777424905,
+      "defer_recall": 0.06807727690892364,
+      "per_class_defer_rate": {
+        "World": 0.14533333333333334,
+        "Sports": 0.04633333333333333,
+        "Business": 0.20033333333333334,
+        "Sci/Tech": 0.33266666666666667
+      }
+    },
+    {
+      "threshold": 0.55,
+      "team_accuracy": 0.88675,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.16175,
+      "coverage": 0.83825,
+      "ai_handled_accuracy": 0.9804155482652351,
+      "deferred_accuracy": 0.4013395157135497,
+      "defer_helpful_count": 146,
+      "defer_unnecessary_count": 808,
+      "defer_precision": 0.1030832340876009,
+      "defer_recall": 0.07521895929933024,
+      "per_class_defer_rate": {
+        "World": 0.13033333333333333,
+        "Sports": 0.03966666666666667,
+        "Business": 0.185,
+        "Sci/Tech": 0.292
+      }
+    },
+    {
+      "threshold": 0.6,
+      "team_accuracy": 0.8930833333333333,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.14533333333333334,
+      "coverage": 0.8546666666666667,
+      "ai_handled_accuracy": 0.9787441497659907,
+      "deferred_accuracy": 0.3893348623853211,
+      "defer_helpful_count": 143,
+      "defer_unnecessary_count": 729,
+      "defer_precision": 0.08985046976313352,
+      "defer_recall": 0.08199541284403669,
+      "per_class_defer_rate": {
+        "World": 0.11666666666666667,
+        "Sports": 0.036,
+        "Business": 0.169,
+        "Sci/Tech": 0.25966666666666666
+      }
+    },
+    {
+      "threshold": 0.65,
+      "team_accuracy": 0.9006666666666666,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.12916666666666668,
+      "coverage": 0.8708333333333333,
+      "ai_handled_accuracy": 0.9766507177033493,
+      "deferred_accuracy": 0.38838709677419353,
+      "defer_helpful_count": 137,
+      "defer_unnecessary_count": 632,
+      "defer_precision": 0.07966124123329363,
+      "defer_recall": 0.08838709677419355,
+      "per_class_defer_rate": {
+        "World": 0.105,
+        "Sports": 0.03266666666666666,
+        "Business": 0.14866666666666667,
+        "Sci/Tech": 0.23033333333333333
+      }
+    },
+    {
+      "threshold": 0.7,
+      "team_accuracy": 0.9080833333333334,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.11233333333333333,
+      "coverage": 0.8876666666666667,
+      "ai_handled_accuracy": 0.97371385655276,
+      "deferred_accuracy": 0.38946587537091987,
+      "defer_helpful_count": 129,
+      "defer_unnecessary_count": 535,
+      "defer_precision": 0.06947201270345375,
+      "defer_recall": 0.0956973293768546,
+      "per_class_defer_rate": {
+        "World": 0.087,
+        "Sports": 0.02666666666666667,
+        "Business": 0.13466666666666666,
+        "Sci/Tech": 0.201
+      }
+    },
+    {
+      "threshold": 0.75,
+      "team_accuracy": 0.9144166666666667,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.09491666666666666,
+      "coverage": 0.9050833333333334,
+      "ai_handled_accuracy": 0.9703526378786483,
+      "deferred_accuracy": 0.3810359964881475,
+      "defer_helpful_count": 117,
+      "defer_unnecessary_count": 447,
+      "defer_precision": 0.05743019716818844,
+      "defer_recall": 0.10272168568920105,
+      "per_class_defer_rate": {
+        "World": 0.073,
+        "Sports": 0.019333333333333334,
+        "Business": 0.118,
+        "Sci/Tech": 0.16933333333333334
+      }
+    },
+    {
+      "threshold": 0.8,
+      "team_accuracy": 0.9205,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.07516666666666667,
+      "coverage": 0.9248333333333333,
+      "ai_handled_accuracy": 0.9660299153000541,
+      "deferred_accuracy": 0.360310421286031,
+      "defer_helpful_count": 100,
+      "defer_unnecessary_count": 357,
+      "defer_precision": 0.04300648405451899,
+      "defer_recall": 0.11086474501108648,
+      "per_class_defer_rate": {
+        "World": 0.055,
+        "Sports": 0.013666666666666667,
+        "Business": 0.09466666666666666,
+        "Sci/Tech": 0.13733333333333334
+      }
+    },
+    {
+      "threshold": 0.85,
+      "team_accuracy": 0.9270833333333334,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.057416666666666664,
+      "coverage": 0.9425833333333333,
+      "ai_handled_accuracy": 0.9618070904429317,
+      "deferred_accuracy": 0.3570391872278665,
+      "defer_helpful_count": 83,
+      "defer_unnecessary_count": 261,
+      "defer_precision": 0.03255260023818976,
+      "defer_recall": 0.1204644412191582,
+      "per_class_defer_rate": {
+        "World": 0.03933333333333333,
+        "Sports": 0.009,
+        "Business": 0.07333333333333333,
+        "Sci/Tech": 0.108
+      }
+    },
+    {
+      "threshold": 0.9,
+      "team_accuracy": 0.9333333333333333,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.03625,
+      "coverage": 0.96375,
+      "ai_handled_accuracy": 0.954863813229572,
+      "deferred_accuracy": 0.36091954022988504,
+      "defer_helpful_count": 57,
+      "defer_unnecessary_count": 160,
+      "defer_precision": 0.02077543998941379,
+      "defer_recall": 0.1310344827586207,
+      "per_class_defer_rate": {
+        "World": 0.022,
+        "Sports": 0.004,
+        "Business": 0.04833333333333333,
+        "Sci/Tech": 0.07066666666666667
+      }
+    },
+    {
+      "threshold": 0.95,
+      "team_accuracy": 0.9391666666666667,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.012583333333333334,
+      "coverage": 0.9874166666666667,
+      "ai_handled_accuracy": 0.9467465608912145,
+      "deferred_accuracy": 0.3443708609271523,
+      "defer_helpful_count": 18,
+      "defer_unnecessary_count": 51,
+      "defer_precision": 0.006881037448723038,
+      "defer_recall": 0.11920529801324503,
+      "per_class_defer_rate": {
+        "World": 0.004666666666666667,
+        "Sports": 0.0,
+        "Business": 0.019333333333333334,
+        "Sci/Tech": 0.026333333333333334
+      }
+    },
+    {
+      "threshold": 0.96,
+      "team_accuracy": 0.94075,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.007,
+      "coverage": 0.993,
+      "ai_handled_accuracy": 0.9448640483383686,
+      "deferred_accuracy": 0.35714285714285715,
+      "defer_helpful_count": 11,
+      "defer_unnecessary_count": 25,
+      "defer_precision": 0.003969829297340214,
+      "defer_recall": 0.13095238095238096,
+      "per_class_defer_rate": {
+        "World": 0.0016666666666666668,
+        "Sports": 0.0,
+        "Business": 0.010333333333333333,
+        "Sci/Tech": 0.016
+      }
+    },
+    {
+      "threshold": 0.965,
+      "team_accuracy": 0.94125,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.0030833333333333333,
+      "coverage": 0.9969166666666667,
+      "ai_handled_accuracy": 0.9435760260804146,
+      "deferred_accuracy": 0.1891891891891892,
+      "defer_helpful_count": 3,
+      "defer_unnecessary_count": 11,
+      "defer_precision": 0.0009262935027127167,
+      "defer_recall": 0.08108108108108109,
+      "per_class_defer_rate": {
+        "World": 0.001,
+        "Sports": 0.0,
+        "Business": 0.003,
+        "Sci/Tech": 0.008333333333333333
+      }
+    },
+    {
+      "threshold": 0.97,
+      "team_accuracy": 0.9416666666666667,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.0013333333333333333,
+      "coverage": 0.9986666666666667,
+      "ai_handled_accuracy": 0.9427570093457944,
+      "deferred_accuracy": 0.125,
+      "defer_helpful_count": 0,
+      "defer_unnecessary_count": 3,
+      "defer_precision": 0.00026465528648934763,
+      "defer_recall": 0.0,
+      "per_class_defer_rate": {
+        "World": 0.001,
+        "Sports": 0.0,
+        "Business": 0.001,
+        "Sci/Tech": 0.0033333333333333335
+      }
+    },
+    {
+      "threshold": 0.975,
+      "team_accuracy": 0.9419166666666666,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.00016666666666666666,
+      "coverage": 0.9998333333333334,
+      "ai_handled_accuracy": 0.9420736789464911,
+      "deferred_accuracy": 0.0,
+      "defer_helpful_count": 0,
+      "defer_unnecessary_count": 0,
+      "defer_precision": 0.0,
+      "defer_recall": 0.0,
+      "per_class_defer_rate": {
+        "World": 0.0003333333333333333,
+        "Sports": 0.0,
+        "Business": 0.0,
+        "Sci/Tech": 0.0003333333333333333
+      }
+    },
+    {
+      "threshold": 0.98,
+      "team_accuracy": 0.9419166666666666,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.0,
+      "coverage": 1.0,
+      "ai_handled_accuracy": 0.9419166666666666,
+      "deferred_accuracy": 0.0,
+      "defer_helpful_count": 0,
+      "defer_unnecessary_count": 0,
+      "defer_precision": 0.0,
+      "defer_recall": 0.0,
+      "per_class_defer_rate": {
+        "World": 0.0,
+        "Sports": 0.0,
+        "Business": 0.0,
+        "Sci/Tech": 0.0
+      }
+    },
+    {
+      "threshold": 0.985,
+      "team_accuracy": 0.9419166666666666,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.0,
+      "coverage": 1.0,
+      "ai_handled_accuracy": 0.9419166666666666,
+      "deferred_accuracy": 0.0,
+      "defer_helpful_count": 0,
+      "defer_unnecessary_count": 0,
+      "defer_precision": 0.0,
+      "defer_recall": 0.0,
+      "per_class_defer_rate": {
+        "World": 0.0,
+        "Sports": 0.0,
+        "Business": 0.0,
+        "Sci/Tech": 0.0
+      }
+    },
+    {
+      "threshold": 0.99,
+      "team_accuracy": 0.9419166666666666,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.0,
+      "coverage": 1.0,
+      "ai_handled_accuracy": 0.9419166666666666,
+      "deferred_accuracy": 0.0,
+      "defer_helpful_count": 0,
+      "defer_unnecessary_count": 0,
+      "defer_precision": 0.0,
+      "defer_recall": 0.0,
+      "per_class_defer_rate": {
+        "World": 0.0,
+        "Sports": 0.0,
+        "Business": 0.0,
+        "Sci/Tech": 0.0
+      }
+    },
+    {
+      "threshold": 0.995,
+      "team_accuracy": 0.9419166666666666,
+      "ai_accuracy": 0.9419166666666666,
+      "expert_accuracy": 0.62975,
+      "defer_rate": 0.0,
+      "coverage": 1.0,
+      "ai_handled_accuracy": 0.9419166666666666,
+      "deferred_accuracy": 0.0,
+      "defer_helpful_count": 0,
+      "defer_unnecessary_count": 0,
+      "defer_precision": 0.0,
+      "defer_recall": 0.0,
+      "per_class_defer_rate": {
+        "World": 0.0,
+        "Sports": 0.0,
+        "Business": 0.0,
+        "Sci/Tech": 0.0
+      }
+    }
+  ]
+}

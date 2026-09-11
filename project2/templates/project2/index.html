@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="box">
+    <div class="title-container">
+        <div class="title">Project 2: Explainability (Palmer Penguins)</div>
+    </div>
+
+    <div class="main-text">
+        <p>This interface lets you explore interpretability, counterfactual explanations, and feature effect plots on the Palmer Penguins dataset.</p>
+
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        {% if baseline_tree_accuracy %}
+            <h2>Task 1 — Decision tree baseline</h2>
+            <p>
+                A single decision tree fit with no regularization (unlimited depth/leaves) on the full
+                training set: <strong>test accuracy</strong> {{ baseline_tree_accuracy }},
+                <strong>leaves</strong> {{ baseline_tree_leaves }}. This tree is fixed and does not change
+                with the model type or λ slider below — it answers Task 1 on its own.
+            </p>
+            {% if baseline_tree_image_url %}
+                <img src="{{ baseline_tree_image_url }}" alt="Baseline decision tree plot">
+            {% endif %}
+        {% endif %}
+
+        <form method="post" id="explainability-form">
+            {% csrf_token %}
+
+            <h2>Task 2 &amp; 3 — Regularized model selection</h2>
+            <p>
+                {{ form.model_type.label }}: {{ form.model_type }}<br>
+                {{ form.lambda_value.label }}:
+                <input type="range" id="lambda-slider" min="0" max="{{ lambda_max|default:'0.05' }}" step="0.001" value="{{ lambda_value|default:'0.0' }}"
+                       data-tree-max="{{ lambda_max_tree|default:'0.01' }}" data-logistic-max="{{ lambda_max_logistic|default:'0.05' }}">
+                <input type="number" name="lambda_value" id="lambda-value" min="0" max="{{ lambda_max|default:'0.05' }}" step="0.001" value="{{ lambda_value|default:'0.0' }}">
+            </p>
+            <p>The selected model maximizes <strong>test accuracy − λ · Ω(f)</strong>. The slider range is scaled per model type, since leaf count and coefficient-norm complexity live on different scales.</p>
+            <button type="submit">Update model &amp; analysis</button>
+
+            {% if selected_model %}
+                <p>
+                    <strong>Model type:</strong> {{ form.model_type.value }} |
+                    <strong>Setting:</strong> {{ selected_model.setting_label }} |
+                    <strong>Test accuracy:</strong> {{ selected_model.accuracy|floatformat:4 }} |
+                    <strong>{{ complexity_label }}:</strong> {{ selected_model.complexity|floatformat:2 }} |
+                    <strong>Selection score:</strong> {{ selected_model.selection_score|floatformat:4 }}
+                </p>
+
+                {% if tree_image_url %}
+                    <h3>Decision tree visualization</h3>
+                    <img src="{{ tree_image_url }}" alt="Decision tree plot">
+                {% endif %}
+
+                <h3>All trained candidates</h3>
+                <table border="1" cellpadding="6" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Test accuracy</th>
+                            <th>{{ complexity_label }}</th>
+                            <th>acc − λ·Ω</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in model_rows %}
+                            <tr{% if row.selected %} style="font-weight: bold;"{% endif %}>
+                                <td>{{ row.setting }}</td>
+                                <td>{{ row.accuracy }}</td>
+                                <td>{{ row.complexity }}</td>
+                                <td>{{ row.selection_score }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+
+            <h2>Task 4 — Counterfactual explanations</h2>
+            <p>
+                {{ form.instance_index.label }}: {{ form.instance_index }}
+                <span class="field-hint">{{ form.instance_index.help_text }}</span><br>
+                {{ form.target_label.label }}: {{ form.target_label }}
+            </p>
+            <p><em>Uses the model type and λ selected above (currently: {{ form.model_type.value }}, λ = {{ lambda_value }}).</em></p>
+            <button type="submit">Update counterfactuals</button>
+
+            {% if counterfactuals %}
+                <p>
+                    <strong>Original prediction:</strong> {{ counterfactuals.original_prediction }} |
+                    <strong>Desired label:</strong> {{ counterfactuals.target_label }}
+                </p>
+                {% if counterfactuals.already_target_class %}
+                    <p><em>The selected example is already predicted as "{{ counterfactuals.target_label }}" — choose a different target species to see a meaningful counterfactual.</em></p>
+                {% endif %}
+                {% if counterfactuals.counterfactuals %}
+                    <table border="1" cellpadding="6" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>MAD-weighted L1 distance</th>
+                                <th>Predicted class</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in counterfactuals.counterfactuals %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ item.distance|floatformat:4 }}</td>
+                                    <td>{{ item.prediction }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <h3>Feature-by-feature comparison</h3>
+                    <p>Changed features (relative to the original example) are shown in <strong>bold</strong>.</p>
+                    {% for item in counterfactuals.counterfactuals %}
+                        <p><strong>Counterfactual #{{ forloop.counter }}</strong> (distance {{ item.distance|floatformat:4 }}, predicted {{ item.prediction }})</p>
+                        <table border="1" cellpadding="6" cellspacing="0" class="cf-compare-table">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Original</th>
+                                    <th>Counterfactual</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in item.feature_rows %}
+                                    <tr{% if row.changed %} style="font-weight: bold; background-color: #fff6d8;"{% endif %}>
+                                        <td>{{ row.feature }}</td>
+                                        <td>{{ row.original }}</td>
+                                        <td>{{ row.counterfactual }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% endfor %}
+                {% else %}
+                    <p>No counterfactuals found. Try another example, target label, or lower lambda.</p>
+                {% endif %}
+            {% endif %}
+
+            <h2>Task 5 — Feature effect plots</h2>
+            <p>
+                {{ form.effect_feature.label }}: {{ form.effect_feature }}<br>
+                ALE derivatives for logistic regression are computed exactly; decision trees use finite differences.
+            </p>
+            <p><em>Uses the model type and λ selected above (currently: {{ form.model_type.value }}, λ = {{ lambda_value }}).</em></p>
+            <button type="submit">Update feature effect plots</button>
+
+            {% if pdp_url and ale_url %}
+                <div>
+                    <h3>Partial Dependence Plot</h3>
+                    <img src="{{ pdp_url }}" alt="PDP plot">
+                    <h3>Accumulated Local Effects Plot ({{ ale_method }})</h3>
+                    <img src="{{ ale_url }}" alt="ALE plot">
+                </div>
+            {% endif %}
+        </form>
+
+        <h2>Dataset preview</h2>
+        <p>
+            Dataset size: {{ dataset_size }} rows (indices 0–{{ dataset_size|add:"-1" }}). This preview shows
+            the first 8 rows only, so you can see the column names and what values look like
+            (e.g. which islands/sexes exist) — it is a format reference, not a full lookup
+            table. The "Example index" field in Task 4 accepts any row number in that range,
+            and the exact row you pick is shown as the "Original" column in the
+            feature-by-feature comparison table above once you generate a counterfactual.
+        </p>
+        {{ preview_rows|safe }}
+
+        <h2>Methodology note: PDP and ALE implementation</h2>
+        <p>
+            Both PDP and ALE above are implemented manually (see <code>feature_effects.py</code>),
+            without using any explainability library, as required by the assignment.
+        </p>
+        <p>
+            <strong>PDP</strong> is computed by building a grid of values across the selected
+            feature's range, replacing that feature's value with each grid point for every
+            observation in the dataset, obtaining the model's predicted class probabilities,
+            and averaging them across all observations at each grid point.
+        </p>
+        <p>
+            <strong>ALE</strong> is computed by dividing the feature into bins and calculating
+            the local effect within each bin before accumulating those effects across bins
+            (and centering the final curve to mean zero). Calculating a local effect requires
+            a partial derivative of the predicted probability with respect to the feature:
+        </p>
+        <ul>
+            <li>
+                <strong>For logistic regression, the partial derivatives are computed exactly</strong>,
+                using the analytical derivative of the softmax probabilities with respect to the
+                feature (a closed-form Jacobian derived from the fitted coefficients — no
+                approximation involved).
+            </li>
+            <li>
+                <strong>For the decision tree, the prediction function is piecewise constant and
+                not smoothly differentiable</strong> (it has no real derivative — it is flat within
+                each leaf and jumps only at split thresholds), so a discretization is used
+                instead: a finite-difference approximation of the local effect, with the
+                step size tied to each bin's width so the approximation actually captures the
+                tree's behavior across a meaningful interval rather than measuring an
+                infinitesimal step that would almost never cross a split.
+            </li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    const slider = document.getElementById("lambda-slider");
+    const numberInput = document.getElementById("lambda-value");
+    const modelTypeSelect = document.getElementById("id_model_type");
+
+    if (slider && numberInput) {
+        slider.addEventListener("input", () => {
+            numberInput.value = slider.value;
+        });
+        numberInput.addEventListener("input", () => {
+            slider.value = numberInput.value;
+        });
+    }
+
+    if (modelTypeSelect && slider && numberInput) {
+        modelTypeSelect.addEventListener("change", () => {
+            const max = modelTypeSelect.value === "logistic"
+                ? slider.dataset.logisticMax
+                : slider.dataset.treeMax;
+            slider.max = max;
+            numberInput.max = max;
+            if (parseFloat(numberInput.value) > parseFloat(max)) {
+                numberInput.value = max;
+                slider.value = max;
+            }
+        });
+    }
+
+    // Task 4/5 dropdowns (target species, effect feature) auto-submit the shared
+    // form on change, so picking a new option applies immediately -- the user does
+    // not need to scroll back up to the "Update analysis" button for these.
+    const form = document.getElementById("explainability-form");
+    const targetLabelSelect = document.getElementById("id_target_label");
+    const effectFeatureSelect = document.getElementById("id_effect_feature");
+    [targetLabelSelect, effectFeatureSelect].forEach((select) => {
+        if (select && form) {
+            select.addEventListener("change", () => form.submit());
+        }
+    });
+</script>
+
+{% endblock %}

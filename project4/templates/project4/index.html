@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="box">
+    <div class="title-container">
+        <div class="title">Project 4: Preference Elicitation</div>
+    </div>
+
+    <div class="main-text">
+        <p>Movie preference elicitation study using the IMDB 5000 Movie Dataset.</p>
+        <p><strong>Movies loaded:</strong> {{ movie_count }}</p>
+
+        <h2>Download study documentation</h2>
+        <p>
+            <a href="{% url 'project4:download_report' %}">Download PDF report</a>
+            (Tasks 1–3: features, ranking model, user study design)
+        </p>
+
+        <h2>Study overview</h2>
+        <p><strong>Hypothesis:</strong> {{ study_design.hypothesis }}</p>
+        <p><strong>Design:</strong> {{ study_design.design_type }}</p>
+        <ul>
+            <li>Design 1: {{ study_design.conditions.design1 }}</li>
+            <li>Design 2: {{ study_design.conditions.design2 }}</li>
+        </ul>
+
+        <h2>Start participant interface (Task 4)</h2>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <form method="post" action="{% url 'project4:start_study' %}">
+            {% csrf_token %}
+            {{ start_form.as_p }}
+            <button type="submit">Start study</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,722 @@
+[
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.908166164745694,
+    "val_accuracy": 0.9085
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9086730343756548,
+    "val_accuracy": 0.909
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9079522064063648,
+    "val_accuracy": 0.90825
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9081805184240832,
+    "val_accuracy": 0.9085
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.907834423675392,
+    "val_accuracy": 0.9081666666666667
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9085134812389613,
+    "val_accuracy": 0.9088333333333334
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9079534986915071,
+    "val_accuracy": 0.90825
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9084308556147124,
+    "val_accuracy": 0.90875
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9086475765465176,
+    "val_accuracy": 0.909
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9080682840887699,
+    "val_accuracy": 0.9084166666666667
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9104275083203506,
+    "val_accuracy": 0.91075
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9103468402915909,
+    "val_accuracy": 0.9106666666666666
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9085630298008727,
+    "val_accuracy": 0.9089166666666667
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9084067522193506,
+    "val_accuracy": 0.90875
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9104260380719476,
+    "val_accuracy": 0.91075
+  },
+  {
+    "params": {
+      "classifier__C": 0.1,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9103458083575253,
+    "val_accuracy": 0.9106666666666666
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9184730558593462,
+    "val_accuracy": 0.9186666666666666
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9200468540482601,
+    "val_accuracy": 0.92025
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9195370543999235,
+    "val_accuracy": 0.91975
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9187116272941218,
+    "val_accuracy": 0.9189166666666667
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9185581789914753,
+    "val_accuracy": 0.91875
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9196262485293425,
+    "val_accuracy": 0.9198333333333333
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9195468946701144,
+    "val_accuracy": 0.91975
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.918957798816339,
+    "val_accuracy": 0.9191666666666667
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9198850764826701,
+    "val_accuracy": 0.9200833333333334
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9207920865541306,
+    "val_accuracy": 0.921
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9233780495820096,
+    "val_accuracy": 0.9235833333333333
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9241388455587077,
+    "val_accuracy": 0.9243333333333333
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.920466573307109,
+    "val_accuracy": 0.9206666666666666
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9209624184169429,
+    "val_accuracy": 0.9211666666666667
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.922797437543044,
+    "val_accuracy": 0.923
+  },
+  {
+    "params": {
+      "classifier__C": 1.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9243912160415358,
+    "val_accuracy": 0.9245833333333333
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9121705205275019,
+    "val_accuracy": 0.91225
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9105608207259597,
+    "val_accuracy": 0.9106666666666666
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9116293566313308,
+    "val_accuracy": 0.91175
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9121412110603302,
+    "val_accuracy": 0.91225
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9119184579230404,
+    "val_accuracy": 0.912
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9119019420376391,
+    "val_accuracy": 0.912
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9115415160407765,
+    "val_accuracy": 0.9116666666666666
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 10000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9123735931797872,
+    "val_accuracy": 0.9125
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9149668309989764,
+    "val_accuracy": 0.9150833333333334
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9148097446197286,
+    "val_accuracy": 0.9149166666666667
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9189671792191357,
+    "val_accuracy": 0.9190833333333334
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 2,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9181506591671019,
+    "val_accuracy": 0.91825
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9157276376014338,
+    "val_accuracy": 0.9158333333333334
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        1
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.914556335464899,
+    "val_accuracy": 0.9146666666666666
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": true
+    },
+    "val_macro_f1": 0.9192315351845934,
+    "val_accuracy": 0.9193333333333333
+  },
+  {
+    "params": {
+      "classifier__C": 10.0,
+      "vectorizer__max_features": 20000,
+      "vectorizer__min_df": 5,
+      "vectorizer__ngram_range": [
+        1,
+        2
+      ],
+      "vectorizer__stop_words": "english",
+      "vectorizer__sublinear_tf": false
+    },
+    "val_macro_f1": 0.9189867251018271,
+    "val_accuracy": 0.9190833333333334
+  }
+]

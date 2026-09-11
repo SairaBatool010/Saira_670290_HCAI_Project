@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="box">
+    <div class="title-container">
+        <div class="title">Ranking preference task</div>
+    </div>
+
+    <div class="main-text">
+        <p class="progress-label">Round {{ round_number }} of {{ total_rounds }}</p>
+        <div class="progress-bar"><div class="progress-bar-fill" style="width: {% widthratio round_number total_rounds 100 %}%;"></div></div>
+
+        <p>Rank the movies below from <strong>most preferred (1)</strong> to <strong>least preferred ({{ ranking_set_size }})</strong>.</p>
+        <p><em>Note: the IMDB rating is intentionally hidden during this task so that your
+        ranking reflects your own taste rather than other viewers' ratings.</em></p>
+
+        {% if error %}
+            <p class="form-error">{{ error }}</p>
+        {% endif %}
+
+        <form method="post" id="ranking-form">
+            {% csrf_token %}
+            {% for movie in movies %}
+                <div class="ranking-row">
+                    <strong>{{ movie.title }}</strong> ({{ movie.year }}) — {{ movie.genres }}
+                    <label>
+                        Rank:
+                        <select name="rank_{{ movie.id }}" required> 
+                            <option value="">Select rank</option>
+                            {% for rank in rank_options %}
+                                <option value="{{ rank }}">{{ rank }}</option>
+                            {% endfor %}
+                        </select>
+                    </label>  <br>
+                </div>
+            {% endfor %}
+            <button type="submit">Submit ranking</button>
+        </form>
+        <p><em>Each rank number (1–{{ ranking_set_size }}) must be used exactly once.</em></p>
+    </div>
+</div>
+
+<script>
+    document.getElementById("ranking-form").addEventListener("submit", function (event) {
+        const selects = Array.from(document.querySelectorAll("select[name^='rank_']"));
+        const ranks = selects.map(select => select.value).filter(Boolean);
+        const unique = new Set(ranks);
+        if (ranks.length !== selects.length || unique.size !== selects.length) {
+            event.preventDefault();
+            alert("Please assign a unique rank to every movie before submitting.");
+        }
+    });
+</script>
+{% endblock %}

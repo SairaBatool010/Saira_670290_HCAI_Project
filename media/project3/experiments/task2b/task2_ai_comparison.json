@@ -1,0 +1,101 @@
+{
+  "counts": {
+    "ai_correct_expert_wrong": 3841,
+    "ai_wrong_expert_correct": 195,
+    "both_correct": 3145,
+    "both_wrong": 419,
+    "disagree_total": 4198
+  },
+  "per_class_comparison": {
+    "World": {
+      "expert_accuracy": 0.29578947368421055,
+      "ai_accuracy": 0.9110526315789473,
+      "expert_beats_ai_count": 29,
+      "ai_beats_expert_count": 29
+    },
+    "Sports": {
+      "expert_accuracy": 0.3142105263157895,
+      "ai_accuracy": 0.9810526315789474,
+      "expert_beats_ai_count": 7,
+      "ai_beats_expert_count": 7
+    },
+    "Business": {
+      "expert_accuracy": 0.9252631578947368,
+      "ai_accuracy": 0.8857894736842106,
+      "expert_beats_ai_count": 127,
+      "ai_beats_expert_count": 127
+    },
+    "Sci/Tech": {
+      "expert_accuracy": 0.22263157894736843,
+      "ai_accuracy": 0.8989473684210526,
+      "expert_beats_ai_count": 32,
+      "ai_beats_expert_count": 32
+    }
+  },
+  "examples": {
+    "ai_correct_expert_wrong": [
+      {
+        "index": 1,
+        "true_label": "Sci/Tech",
+        "ai_prediction": "Sci/Tech",
+        "expert_prediction": "Business"
+      },
+      {
+        "index": 2,
+        "true_label": "Sci/Tech",
+        "ai_prediction": "Sci/Tech",
+        "expert_prediction": "Business"
+      },
+      {
+        "index": 5,
+        "true_label": "Sci/Tech",
+        "ai_prediction": "Sci/Tech",
+        "expert_prediction": "Business"
+      },
+      {
+        "index": 6,
+        "true_label": "Sci/Tech",
+        "ai_prediction": "Sci/Tech",
+        "expert_prediction": "Business"
+      },
+      {
+        "index": 8,
+        "true_label": "Sci/Tech",
+        "ai_prediction": "Sci/Tech",
+        "expert_prediction": "World"
+      }
+    ],
+    "ai_wrong_expert_correct": [
+      {
+        "index": 83,
+        "true_label": "Business",
+        "ai_prediction": "Sci/Tech",
+        "expert_prediction": "Business"
+      },
+      {
+        "index": 110,
+        "true_label": "Business",
+        "ai_prediction": "Sci/Tech",
+        "expert_prediction": "Business"
+      },
+      {
+        "index": 111,
+        "true_label": "Sci/Tech",
+        "ai_prediction": "Business",
+        "expert_prediction": "Sci/Tech"
+      },
+      {
+        "index": 126,
+        "true_label": "Sports",
+        "ai_prediction": "World",
+        "expert_prediction": "Sports"
+      },
+      {
+        "index": 272,
+        "true_label": "Business",
+        "ai_prediction": "Sci/Tech",
+        "expert_prediction": "Business"
+      }
+    ]
+  }
+}

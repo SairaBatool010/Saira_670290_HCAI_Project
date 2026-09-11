@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="box">
+    <div class="title-container">
+        <div class="title">Study complete</div>
+    </div>
+
+    <div class="main-text">
+        <p>Thank you, participant <strong>{{ participant_id }}</strong>.</p>
+        <p><strong>Condition:</strong> {{ design }}</p>
+        <p><strong>Pairwise responses:</strong> {{ pairwise_count }} | <strong>Ranking responses:</strong> {{ ranking_count }}</p>
+        <p><strong>Completion time:</strong> {{ elapsed_seconds }} seconds</p>
+
+        <h2>Preview recommendations from estimated preferences</h2>
+        <p>These are shown for demonstration after the session (not part of the formal study outcome).</p>
+        <table border="1" cellpadding="6" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Genres</th>
+                    <th>Year</th>
+                    <th>IMDB</th>
+                    <th>Utility score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in recommendations %}
+                    <tr>
+                        <td>{{ movie.title }}</td>
+                        <td>{{ movie.genres }}</td>
+                        <td>{{ movie.year }}</td>
+                        <td>{{ movie.imdb_score }}</td>
+                        <td>{{ movie.score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p><a href="{% url 'project4:index' %}">Back to project landing page</a></p>
+    </div>
+</div>
+{% endblock %}

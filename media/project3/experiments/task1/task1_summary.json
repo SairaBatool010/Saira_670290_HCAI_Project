@@ -1,0 +1,261 @@
+{
+  "dataset_report_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task1\\phase1_dataset_report.json",
+  "artifact_paths": {
+    "model_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task1\\task1_model.joblib",
+    "config_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task1\\task1_config.json",
+    "metrics_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task1\\task1_metrics.json",
+    "search_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task1\\task1_hyperparameter_search.json",
+    "plots_dir": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task1\\plots"
+  },
+  "analysis_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task1\\task1_analysis.json",
+  "best_params": {
+    "classifier__C": 1.0,
+    "vectorizer__max_features": 20000,
+    "vectorizer__min_df": 5,
+    "vectorizer__ngram_range": [
+      1,
+      2
+    ],
+    "vectorizer__stop_words": "english",
+    "vectorizer__sublinear_tf": false
+  },
+  "validation_metrics": {
+    "accuracy": 0.9419166666666666,
+    "macro_precision": 0.9418189649750153,
+    "macro_recall": 0.9419166666666666,
+    "macro_f1": 0.9417909465892829,
+    "per_class": {
+      "0": {
+        "precision": 0.9497092028737598,
+        "recall": 0.9253333333333333,
+        "f1": 0.9373628228938038,
+        "support": 3000
+      },
+      "1": {
+        "precision": 0.9661348095083034,
+        "recall": 0.989,
+        "f1": 0.9774337012024378,
+        "support": 3000
+      },
+      "2": {
+        "precision": 0.921299397186872,
+        "recall": 0.917,
+        "f1": 0.9191446708987637,
+        "support": 3000
+      },
+      "3": {
+        "precision": 0.9301324503311258,
+        "recall": 0.9363333333333334,
+        "f1": 0.9332225913621263,
+        "support": 3000
+      }
+    },
+    "confusion_matrix": [
+      [
+        2776,
+        70,
+        99,
+        55
+      ],
+      [
+        20,
+        2967,
+        6,
+        7
+      ],
+      [
+        79,
+        21,
+        2751,
+        149
+      ],
+      [
+        48,
+        13,
+        130,
+        2809
+      ]
+    ]
+  },
+  "test_metrics": {
+    "accuracy": 0.9192105263157895,
+    "macro_precision": 0.9190078418890513,
+    "macro_recall": 0.9192105263157895,
+    "macro_f1": 0.9190294204811683,
+    "per_class": {
+      "0": {
+        "precision": 0.9321486268174475,
+        "recall": 0.9110526315789473,
+        "f1": 0.9214799041788662,
+        "support": 1900
+      },
+      "1": {
+        "precision": 0.9549180327868853,
+        "recall": 0.9810526315789474,
+        "f1": 0.9678089304257529,
+        "support": 1900
+      },
+      "2": {
+        "precision": 0.8937865108868827,
+        "recall": 0.8857894736842106,
+        "f1": 0.8897700237906423,
+        "support": 1900
+      },
+      "3": {
+        "precision": 0.8951781970649895,
+        "recall": 0.8989473684210526,
+        "f1": 0.8970588235294118,
+        "support": 1900
+      }
+    },
+    "confusion_matrix": [
+      [
+        1731,
+        54,
+        66,
+        49
+      ],
+      [
+        18,
+        1864,
+        12,
+        6
+      ],
+      [
+        59,
+        13,
+        1683,
+        145
+      ],
+      [
+        49,
+        21,
+        122,
+        1708
+      ]
+    ]
+  },
+  "dataset_report": {
+    "dataset_name": "AG News",
+    "random_state": 42,
+    "val_size": 0.1,
+    "splits": {
+      "train_full": 120000,
+      "train_fit": 108000,
+      "validation": 12000,
+      "test_official": 7600
+    },
+    "num_classes": 4,
+    "class_names": [
+      "World",
+      "Sports",
+      "Business",
+      "Sci/Tech"
+    ],
+    "class_distribution": {
+      "train_full": {
+        "counts": {
+          "World": 30000,
+          "Sports": 30000,
+          "Business": 30000,
+          "Sci/Tech": 30000
+        },
+        "percentages": {
+          "World": 25.0,
+          "Sports": 25.0,
+          "Business": 25.0,
+          "Sci/Tech": 25.0
+        },
+        "total": 120000
+      },
+      "validation": {
+        "counts": {
+          "World": 3000,
+          "Sports": 3000,
+          "Business": 3000,
+          "Sci/Tech": 3000
+        },
+        "percentages": {
+          "World": 25.0,
+          "Sports": 25.0,
+          "Business": 25.0,
+          "Sci/Tech": 25.0
+        },
+        "total": 12000
+      },
+      "test_official": {
+        "counts": {
+          "World": 1900,
+          "Sports": 1900,
+          "Business": 1900,
+          "Sci/Tech": 1900
+        },
+        "percentages": {
+          "World": 25.0,
+          "Sports": 25.0,
+          "Business": 25.0,
+          "Sci/Tech": 25.0
+        },
+        "total": 7600
+      }
+    },
+    "text_length_words": {
+      "train_full": {
+        "average_word_count": 37.85,
+        "min_word_count": 8,
+        "max_word_count": 177,
+        "median_word_count": 37.0
+      },
+      "test_official": {
+        "average_word_count": 37.72,
+        "min_word_count": 11,
+        "max_word_count": 137,
+        "median_word_count": 37.0
+      }
+    },
+    "representative_examples": {
+      "World": [
+        {
+          "index": 10616,
+          "text_preview": "Thatcher son was planning to flee Mark Thatcher, multi-millionaire businessman and son of former British prime minister Margaret Thatcher, had planned to flee South Africa shortly before he was arrested on charges of being involved in a cou"
+        },
+        {
+          "index": 91875,
+          "text_preview": "Cricket: India fights Ganguly ban Sourav Ganguly files an appeal against a two-match ban imposed for time-wasting."
+        }
+      ],
+      "Sports": [
+        {
+          "index": 54047,
+          "text_preview": "Tiger needs focus It #39;s doubtful that Elin Nordegren, retired swimsuit model and nanny, ever aspired to the title  quot;Most Powerful Person in Golf."
+        },
+        {
+          "index": 53239,
+          "text_preview": "A nice opening act CLEVELAND -- Returning kicks is dangerous work. It is a job for adrenaline junkies and those overloaded with fast-twitch muscle fiber, because things are not always what they seem."
+        }
+      ],
+      "Business": [
+        {
+          "index": 85044,
+          "text_preview": "EU calls for fresh start in transatlantic trade relations New European Union (EU) Trade Commissioner Peter Mandelson called on Tuesday for a fresh start in EU-US trade relations, which had been through a difficult path in the last few years"
+        },
+        {
+          "index": 10361,
+          "text_preview": "Northwest and Sabre may fight in court over ticket selling Northwest Airlines has sued Sabre Holdings Co., which runs the world #39;s biggest computerized reservation system, in a high-stakes dispute that could determine the future of third"
+        }
+      ],
+      "Sci/Tech": [
+        {
+          "index": 10678,
+          "text_preview": "Microsoft preps XP push, mulls Longhorn 'priorities' Software giant readies slew of new products for the holidays and revisits options for major Windows revision, News.com has learned."
+        },
+        {
+          "index": 61425,
+          "text_preview": "Report: Four sentenced to jail in China for porn Four Chinese men have been sentenced to up to two and a half years in jail as punishment for operating a pornographic Web site, the country #39;s official English-language newspaper reported "
+        }
+      ]
+    },
+    "is_balanced": true,
+    "balance_note": "Classes are approximately balanced in AG News."
+  }
+}

@@ -1,0 +1,263 @@
+{
+  "artifact_paths": {
+    "expert_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task2b\\task2_expert.joblib",
+    "config_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task2b\\task2_config.json",
+    "metrics_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task2b\\task2_metrics.json",
+    "comparison_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task2b\\task2_ai_comparison.json",
+    "analysis_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task2b\\task2_analysis.json"
+  },
+  "analysis_path": "C:\\Users\\HOME\\Downloads\\HCAI_Project\\HCAI-PBL\\media\\project3\\experiments\\task2b\\task2_analysis.json",
+  "validation_metrics": {
+    "accuracy": 0.43333333333333335,
+    "macro_precision": 0.4014568461794068,
+    "macro_recall": 0.43333333333333335,
+    "macro_f1": 0.4005946107505043,
+    "per_class": {
+      "0": {
+        "precision": 0.3861646234676007,
+        "recall": 0.294,
+        "f1": 0.33383800151400456,
+        "support": 3000
+      },
+      "1": {
+        "precision": 0.4281780633318036,
+        "recall": 0.311,
+        "f1": 0.36030121645105234,
+        "support": 3000
+      },
+      "2": {
+        "precision": 0.5477219167321288,
+        "recall": 0.9296666666666666,
+        "f1": 0.6893227879387049,
+        "support": 3000
+      },
+      "3": {
+        "precision": 0.24376278118609407,
+        "recall": 0.19866666666666666,
+        "f1": 0.21891643709825528,
+        "support": 3000
+      }
+    },
+    "confusion_matrix": [
+      [
+        882,
+        699,
+        572,
+        847
+      ],
+      [
+        754,
+        933,
+        393,
+        920
+      ],
+      [
+        67,
+        62,
+        2789,
+        82
+      ],
+      [
+        581,
+        485,
+        1338,
+        596
+      ]
+    ]
+  },
+  "test_metrics": {
+    "accuracy": 0.4394736842105263,
+    "macro_precision": 0.41048241602368385,
+    "macro_recall": 0.43947368421052635,
+    "macro_f1": 0.408585109982648,
+    "per_class": {
+      "0": {
+        "precision": 0.3924581005586592,
+        "recall": 0.29578947368421055,
+        "f1": 0.33733493397358943,
+        "support": 1900
+      },
+      "1": {
+        "precision": 0.43481427530954114,
+        "recall": 0.3142105263157895,
+        "f1": 0.36480293308890926,
+        "support": 1900
+      },
+      "2": {
+        "precision": 0.5512699905926622,
+        "recall": 0.9252631578947368,
+        "f1": 0.6909019453723718,
+        "support": 1900
+      },
+      "3": {
+        "precision": 0.263387297633873,
+        "recall": 0.22263157894736843,
+        "f1": 0.24130062749572162,
+        "support": 1900
+      }
+    },
+    "confusion_matrix": [
+      [
+        562,
+        420,
+        380,
+        538
+      ],
+      [
+        464,
+        597,
+        235,
+        604
+      ],
+      [
+        51,
+        50,
+        1758,
+        41
+      ],
+      [
+        355,
+        306,
+        816,
+        423
+      ]
+    ]
+  },
+  "ai_expert_comparison": {
+    "counts": {
+      "ai_correct_expert_wrong": 3841,
+      "ai_wrong_expert_correct": 195,
+      "both_correct": 3145,
+      "both_wrong": 419,
+      "disagree_total": 4198
+    },
+    "per_class_comparison": {
+      "World": {
+        "expert_accuracy": 0.29578947368421055,
+        "ai_accuracy": 0.9110526315789473,
+        "expert_beats_ai_count": 29,
+        "ai_beats_expert_count": 29
+      },
+      "Sports": {
+        "expert_accuracy": 0.3142105263157895,
+        "ai_accuracy": 0.9810526315789474,
+        "expert_beats_ai_count": 7,
+        "ai_beats_expert_count": 7
+      },
+      "Business": {
+        "expert_accuracy": 0.9252631578947368,
+        "ai_accuracy": 0.8857894736842106,
+        "expert_beats_ai_count": 127,
+        "ai_beats_expert_count": 127
+      },
+      "Sci/Tech": {
+        "expert_accuracy": 0.22263157894736843,
+        "ai_accuracy": 0.8989473684210526,
+        "expert_beats_ai_count": 32,
+        "ai_beats_expert_count": 32
+      }
+    },
+    "examples": {
+      "ai_correct_expert_wrong": [
+        {
+          "index": 1,
+          "true_label": "Sci/Tech",
+          "ai_prediction": "Sci/Tech",
+          "expert_prediction": "Business"
+        },
+        {
+          "index": 2,
+          "true_label": "Sci/Tech",
+          "ai_prediction": "Sci/Tech",
+          "expert_prediction": "Business"
+        },
+        {
+          "index": 5,
+          "true_label": "Sci/Tech",
+          "ai_prediction": "Sci/Tech",
+          "expert_prediction": "Business"
+        },
+        {
+          "index": 6,
+          "true_label": "Sci/Tech",
+          "ai_prediction": "Sci/Tech",
+          "expert_prediction": "Business"
+        },
+        {
+          "index": 8,
+          "true_label": "Sci/Tech",
+          "ai_prediction": "Sci/Tech",
+          "expert_prediction": "World"
+        }
+      ],
+      "ai_wrong_expert_correct": [
+        {
+          "index": 83,
+          "true_label": "Business",
+          "ai_prediction": "Sci/Tech",
+          "expert_prediction": "Business"
+        },
+        {
+          "index": 110,
+          "true_label": "Business",
+          "ai_prediction": "Sci/Tech",
+          "expert_prediction": "Business"
+        },
+        {
+          "index": 111,
+          "true_label": "Sci/Tech",
+          "ai_prediction": "Business",
+          "expert_prediction": "Sci/Tech"
+        },
+        {
+          "index": 126,
+          "true_label": "Sports",
+          "ai_prediction": "World",
+          "expert_prediction": "Sports"
+        },
+        {
+          "index": 272,
+          "true_label": "Business",
+          "ai_prediction": "Sci/Tech",
+          "expert_prediction": "Business"
+        }
+      ]
+    }
+  },
+  "competence_profile": {
+    "World": 0.367,
+    "Sports": 0.367,
+    "Business": 0.995,
+    "Sci/Tech": 0.367
+  },
+  "calibrated_reliability": [
+    0.3675,
+    0.3675,
+    0.995,
+    0.3675
+  ],
+  "target_profile": {
+    "World": 0.35,
+    "Sports": 0.35,
+    "Business": 0.97,
+    "Sci/Tech": 0.35
+  },
+  "validation_per_class_accuracy": {
+    "World": 0.294,
+    "Sports": 0.311,
+    "Business": 0.9296666666666666,
+    "Sci/Tech": 0.19866666666666666
+  },
+  "pre_model_accuracy": {
+    "overall": 0.76325,
+    "per_class": {
+      "World": 0.7536666666666667,
+      "Sports": 0.8536666666666667,
+      "Business": 0.935,
+      "Sci/Tech": 0.5106666666666667
+    }
+  },
+  "expert_name": "Business specialist",
+  "expert_description": "A simulated financial-news specialist: near-expert on Business articles (recognized via a large finance/markets vocabulary), but weak and close to random on World, Sports, and Sci/Tech, where it has no comparable domain vocabulary to draw on.",
+  "design_rationale": "Expert reads each article using a weaker MultinomialNB + keyword model, infers a latent topic from text, then samples a label from a class-conditional confusion matrix calibrated on validation. True labels are never used at inference."
+}

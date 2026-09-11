@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="box">
+    <div class="title-container">
+        <div class="title">Informed consent</div>
+    </div>
+
+    <div class="main-text">
+        <p>Before starting, please confirm a few details. This mirrors the consent and
+        demographic collection step described in the study protocol (Task 3), even though
+        this interface is a demonstration rather than a live research study.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">I agree, start the study</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

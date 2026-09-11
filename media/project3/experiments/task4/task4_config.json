@@ -1,0 +1,17 @@
+{
+  "random_state": 42,
+  "query_budgets": [
+    20,
+    50,
+    100,
+    200,
+    500
+  ],
+  "pool_size": 108000,
+  "strategy_names": [
+    "random",
+    "uncertainty",
+    "entropy",
+    "competence_aware"
+  ]
+}

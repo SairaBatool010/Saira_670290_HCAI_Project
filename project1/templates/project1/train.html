@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="box">
+    <div class="title-container">
+        <div class="title">Model training</div>
+    </div>
+
+    <div class="main-text">
+        <p><strong>Problem type:</strong> {{ problem_type }}</p>
+        <p><strong>Label column:</strong> {{ label_name }}</p>
+        <p><strong>Samples:</strong> {{ sample_count }} | <strong>Features used:</strong> {{ feature_count }}</p>
+
+        <h2>Training configuration</h2>
+        <form method="post" id="train-form">
+            {% csrf_token %}
+            {{ train_form.as_p }}
+            <p id="hyperparam-hint" class="hint-box"></p>
+            <button type="submit">Train and evaluate</button>
+        </form>
+
+        {{ model_param_info|json_script:"model-param-info" }}
+        <script>
+            (function () {
+                const paramInfo = JSON.parse(document.getElementById("model-param-info").textContent);
+                const modelSelect = document.getElementById("id_model");
+                const hyperInput = document.getElementById("id_hyperparameter_values");
+                const hyperLabel = hyperInput ? document.querySelector("label[for='id_hyperparameter_values']") : null;
+                const hint = document.getElementById("hyperparam-hint");
+                const staticHelp = hyperInput ? hyperInput.parentElement.querySelector(".helptext") : null;
+
+                function updateHint() {
+                    if (!modelSelect || !paramInfo[modelSelect.value]) return;
+                    const info = paramInfo[modelSelect.value];
+                    if (staticHelp) staticHelp.style.display = "none";
+
+                    // Rename the field label itself to the actual parameter this model
+                    // uses (e.g. "Number of neighbors (k)" for KNN), instead of the
+                    // generic "Hyperparameter values" label, so it's unambiguous which
+                    // value the user is being asked to enter.
+                    if (hyperLabel) hyperLabel.textContent = info.param_label + ":";
+
+                    if (!info.param) {
+                        hint.textContent = info.description;
+                        hyperInput.value = "";
+                        hyperInput.disabled = true;
+                        hyperInput.placeholder = "";
+                    } else {
+                        hint.textContent = `${info.description} Example values to try: ${info.default_values}`;
+                        hyperInput.disabled = false;
+                        hyperInput.placeholder = info.default_values;
+                    }
+                }
+
+                if (modelSelect) {
+                    modelSelect.addEventListener("change", updateHint);
+                    updateHint();
+                }
+            })();
+        </script>
+
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+
+        {% if training_result %}
+            <h2>Results</h2>
+
+            {% if training_result.excluded_columns %}
+                <p><em>Note: {{ training_result.excluded_columns|join:", " }} {% if training_result.excluded_columns|length > 1 %}were{% else %}was{% endif %} non-numeric and excluded from training.</em></p>
+            {% endif %}
+
+            <p>
+                <strong>Model:</strong> {{ training_result.model_name }} |
+                <strong>Metric:</strong> {{ training_result.metric_label }} |
+                <strong>Split:</strong> {{ training_result.train_percent }}% train /
+                {{ training_result.test_percent }}% test
+            </p>
+
+            {% if training_result.hyperparameter_name != "none" %}
+                <p><strong>Hyperparameter tested:</strong> {{ training_result.hyperparameter_name }}</p>
+            {% endif %}
+
+            <table border="1" cellpadding="8" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Hyperparameter value</th>
+                        <th>{{ training_result.metric_label }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in training_result.results %}
+                        <tr>
+                            <td>{{ row.hyperparameter }}</td>
+                            <td>{{ row.score }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <p>
+                <strong>Best configuration:</strong>
+                {% if training_result.hyperparameter_name != "none" %}
+                    {{ training_result.hyperparameter_name }} = {{ training_result.best_result.hyperparameter }}
+                {% else %}
+                    default settings
+                {% endif %}
+                with {{ training_result.metric_label }} = {{ training_result.best_result.score }}
+            </p>
+
+            {% if training_result.score_plot_url %}
+                <h3>Score by hyperparameter value</h3>
+                <img src="{{ training_result.score_plot_url }}" alt="Score by hyperparameter value">
+            {% endif %}
+
+            {% if training_result.result_plot_url %}
+                <h3>
+                    {% if training_result.problem_type == "classification" %}
+                        Confusion matrix (best model)
+                    {% else %}
+                        Predicted vs. actual (best model)
+                    {% endif %}
+                </h3>
+                <img src="{{ training_result.result_plot_url }}" alt="Best model diagnostic plot">
+            {% endif %}
+        {% endif %}
+
+        <br>
+        <a href="{% url 'project1:visualize' %}">Back to visualization</a> |
+        <a href="{% url 'project1:index' %}">Upload another CSV</a> |
+        <a href="{% url 'home:index' %}">Back to home</a>
+    </div>
+</div>
+
+{% endblock %}

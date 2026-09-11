@@ -1,0 +1,17 @@
+{
+  "random_state": 42,
+  "best_confidence_threshold": 0.35000000000000003,
+  "learned_deferral_threshold": 0.99,
+  "expert_competence_by_class": {
+    "0": 0.31122059272838376,
+    "1": 0.3248017956051117,
+    "2": 0.893512988951926,
+    "3": 0.23995474617714682
+  },
+  "strategy_names": [
+    "always_ai",
+    "always_expert",
+    "confidence_threshold",
+    "learned_deferral"
+  ]
+}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="box">
+    <div class="title-container">
+        <div class="title">Study instructions</div>
+    </div>
+
+    <div class="main-text">
+        {% if design == "pairwise" %}
+            <p>You are in <strong>Design 1</strong>. You will see two movies and choose the one you would rather watch.</p>
+            <p>Total rounds: {{ total_rounds }}</p>
+        {% else %}
+            <p>You are in <strong>Design 2</strong>. You will rank {{ ranking_set_size }} movies from most preferred to least preferred.</p>
+            <p>Total rounds: {{ total_rounds }}</p>
+        {% endif %}
+        <p>There are no right or wrong answers. Respond according to your personal preferences.</p>
+        <p><a href="{% url 'project4:task' %}">Begin tasks</a></p>
+    </div>
+</div>
+{% endblock %}

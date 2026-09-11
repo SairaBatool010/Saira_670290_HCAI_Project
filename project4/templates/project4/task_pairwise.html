@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="box">
+    <div class="title-container">
+        <div class="title">Pairwise preference task</div>
+    </div>
+
+    <div class="main-text">
+        <p class="progress-label">Round {{ round_number }} of {{ total_rounds }}</p>
+        <div class="progress-bar"><div class="progress-bar-fill" style="width: {% widthratio round_number total_rounds 100 %}%;"></div></div>
+
+        <p>Which movie would you rather watch?</p>
+        <p><em>Note: the IMDB rating is intentionally hidden during this task so that your
+        choice reflects your own taste rather than other viewers' ratings.</em></p>
+
+        {% if error %}
+            <p class="form-error">{{ error }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="loser_id" id="loser_id">
+
+            <div class="movie-choice-row">
+                <div class="movie-card">
+                    <h3>{{ left_movie.title }}</h3>
+                    <p><strong>Director:</strong> {{ left_movie.director }}</p>
+                    <p><strong>Genres:</strong> {{ left_movie.genres }}</p>
+                    <p><strong>Year:</strong> {{ left_movie.year }}</p>
+                    <button type="submit" name="winner_id" value="{{ left_movie.id }}" onclick="document.getElementById('loser_id').value='{{ right_movie.id }}'">
+                        Prefer this movie
+                    </button>
+                </div>
+
+                <div class="movie-card">
+                    <h3>{{ right_movie.title }}</h3>
+                    <p><strong>Director:</strong> {{ right_movie.director }}</p>
+                    <p><strong>Genres:</strong> {{ right_movie.genres }}</p>
+                    <p><strong>Year:</strong> {{ right_movie.year }}</p>
+                    <button type="submit" name="winner_id" value="{{ right_movie.id }}" onclick="document.getElementById('loser_id').value='{{ left_movie.id }}'">
+                        Prefer this movie
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

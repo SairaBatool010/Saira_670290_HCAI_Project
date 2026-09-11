@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="box">
+    <div class="title-container">
+        <div class="title">Dataset visualization</div>
+    </div>
+
+    <div class="main-text">
+        <p><strong>Rows:</strong> {{ row_count }} | <strong>Columns:</strong> {{ column_count }}</p>
+        <p><strong>Detected problem type:</strong> {{ problem_type }}</p>
+        <p><em>{{ problem_type_reason }}</em></p>
+        <p><strong>Label column:</strong> {{ label_name }}</p>
+        <p><strong>Feature columns:</strong> {{ feature_names|join:", " }}</p>
+
+        {% if dropped_id_column %}
+            <p><em>Note: column "{{ dropped_id_column }}" looked like a row identifier and was excluded automatically.</em></p>
+        {% endif %}
+        {% if non_numeric_features %}
+            <p><em>Note: {{ non_numeric_features|join:", " }} {% if non_numeric_features|length > 1 %}are{% else %}is{% endif %} non-numeric and will not be used for plotting or training.</em></p>
+        {% endif %}
+
+        <h2>Data preview</h2>
+        {{ preview|safe }}
+
+        <h2>Scatter plot</h2>
+        {% if single_feature_only %}
+            <p>Only one numeric feature is available, so it is plotted against the label instead of another feature.</p>
+        {% else %}
+            <form method="post" action="{% url 'project1:visualize' %}">
+                {% csrf_token %}
+                {{ plot_form.as_p }}
+                <button type="submit">Generate plot</button>
+            </form>
+        {% endif %}
+
+        {% if image_url %}
+            <br>
+            <img src="{{ image_url }}" alt="Generated plot" id="generated-plot">
+        {% endif %}
+
+        {% if correlation_url %}
+            <h2>Feature correlation heatmap</h2>
+            <p>Shows how strongly each pair of numeric features is linearly related (1 = perfectly positive, -1 = perfectly negative, 0 = unrelated). Highly correlated features carry overlapping information for the model.</p>
+            <img src="{{ correlation_url }}" alt="Correlation heatmap">
+        {% endif %}
+
+        <h2>{% if problem_type == "classification" %}Class balance{% else %}Label distribution{% endif %}</h2>
+        <p>
+            {% if problem_type == "classification" %}
+                Number of rows per class. A strongly imbalanced dataset (some classes much rarer than others) can make accuracy misleading and is worth knowing before training.
+            {% else %}
+                Distribution of the target value across all rows, useful for spotting skew or outliers before training a regression model.
+            {% endif %}
+        </p>
+        <img src="{{ distribution_url }}" alt="Label distribution">
+
+        <br><br>
+        <a href="{% url 'project1:train' %}">Train a machine learning model</a> |
+        <a href="{% url 'project1:index' %}">Upload another CSV</a> |
+        <a href="{% url 'home:index' %}">Back to home</a>
+    </div>
+</div>
+
+{% endblock %}

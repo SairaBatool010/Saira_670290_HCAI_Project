@@ -1,0 +1,123 @@
+{
+  "dataset_name": "AG News",
+  "random_state": 42,
+  "val_size": 0.1,
+  "splits": {
+    "train_full": 120000,
+    "train_fit": 108000,
+    "validation": 12000,
+    "test_official": 7600
+  },
+  "num_classes": 4,
+  "class_names": [
+    "World",
+    "Sports",
+    "Business",
+    "Sci/Tech"
+  ],
+  "class_distribution": {
+    "train_full": {
+      "counts": {
+        "World": 30000,
+        "Sports": 30000,
+        "Business": 30000,
+        "Sci/Tech": 30000
+      },
+      "percentages": {
+        "World": 25.0,
+        "Sports": 25.0,
+        "Business": 25.0,
+        "Sci/Tech": 25.0
+      },
+      "total": 120000
+    },
+    "validation": {
+      "counts": {
+        "World": 3000,
+        "Sports": 3000,
+        "Business": 3000,
+        "Sci/Tech": 3000
+      },
+      "percentages": {
+        "World": 25.0,
+        "Sports": 25.0,
+        "Business": 25.0,
+        "Sci/Tech": 25.0
+      },
+      "total": 12000
+    },
+    "test_official": {
+      "counts": {
+        "World": 1900,
+        "Sports": 1900,
+        "Business": 1900,
+        "Sci/Tech": 1900
+      },
+      "percentages": {
+        "World": 25.0,
+        "Sports": 25.0,
+        "Business": 25.0,
+        "Sci/Tech": 25.0
+      },
+      "total": 7600
+    }
+  },
+  "text_length_words": {
+    "train_full": {
+      "average_word_count": 37.85,
+      "min_word_count": 8,
+      "max_word_count": 177,
+      "median_word_count": 37.0
+    },
+    "test_official": {
+      "average_word_count": 37.72,
+      "min_word_count": 11,
+      "max_word_count": 137,
+      "median_word_count": 37.0
+    }
+  },
+  "representative_examples": {
+    "World": [
+      {
+        "index": 10616,
+        "text_preview": "Thatcher son was planning to flee Mark Thatcher, multi-millionaire businessman and son of former British prime minister Margaret Thatcher, had planned to flee South Africa shortly before he was arrested on charges of being involved in a cou"
+      },
+      {
+        "index": 91875,
+        "text_preview": "Cricket: India fights Ganguly ban Sourav Ganguly files an appeal against a two-match ban imposed for time-wasting."
+      }
+    ],
+    "Sports": [
+      {
+        "index": 54047,
+        "text_preview": "Tiger needs focus It #39;s doubtful that Elin Nordegren, retired swimsuit model and nanny, ever aspired to the title  quot;Most Powerful Person in Golf."
+      },
+      {
+        "index": 53239,
+        "text_preview": "A nice opening act CLEVELAND -- Returning kicks is dangerous work. It is a job for adrenaline junkies and those overloaded with fast-twitch muscle fiber, because things are not always what they seem."
+      }
+    ],
+    "Business": [
+      {
+        "index": 85044,
+        "text_preview": "EU calls for fresh start in transatlantic trade relations New European Union (EU) Trade Commissioner Peter Mandelson called on Tuesday for a fresh start in EU-US trade relations, which had been through a difficult path in the last few years"
+      },
+      {
+        "index": 10361,
+        "text_preview": "Northwest and Sabre may fight in court over ticket selling Northwest Airlines has sued Sabre Holdings Co., which runs the world #39;s biggest computerized reservation system, in a high-stakes dispute that could determine the future of third"
+      }
+    ],
+    "Sci/Tech": [
+      {
+        "index": 10678,
+        "text_preview": "Microsoft preps XP push, mulls Longhorn 'priorities' Software giant readies slew of new products for the holidays and revisits options for major Windows revision, News.com has learned."
+      },
+      {
+        "index": 61425,
+        "text_preview": "Report: Four sentenced to jail in China for porn Four Chinese men have been sentenced to up to two and a half years in jail as punishment for operating a pornographic Web site, the country #39;s official English-language newspaper reported "
+      }
+    ]
+  },
+  "is_balanced": true,
+  "balance_note": "Classes are approximately balanced in AG News."
+}
