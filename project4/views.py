@@ -1,12 +1,15 @@
+import csv
 import os
 import random
 import time
+import uuid
 
-from django.http import FileResponse, Http404
+from django.http import FileResponse, Http404, HttpResponse
 from django.shortcuts import redirect, render
 
 from .data import load_movies
-from .forms import ConsentForm, StartStudyForm
+from .forms import ConsentForm
+from .models import StudyResponse
 from .preference_model import fit_preference_weights, top_recommendations
 from .report import generate_report_pdf
 from .selection import PAIRWISE_ROUNDS, RANKING_ROUNDS, RANKING_SET_SIZE, sample_pair, sample_ranking_set
@@ -58,7 +61,7 @@ def index(request):
         "report_url": report_url,
         "movie_count": len(movie_data["movies"]),
         "study_design": STUDY_DESIGN,
-        "start_form": StartStudyForm(),
+        "response_count": StudyResponse.objects.count(),
     }
     return render(request, "project4/index.html", context)
 
@@ -70,31 +73,48 @@ def download_report(request):
     return FileResponse(open(report_path, "rb"), as_attachment=True, filename="project4_report.pdf")
 
 
-def start_study(request):
-    if request.method != "POST":
-        return redirect("project4:index")
+def download_results(request):
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = "attachment; filename=project4_study_results.csv"
 
-    form = StartStudyForm(request.POST)
-    if not form.is_valid():
-        report_url, _ = _get_report()
-        return render(
-            request,
-            "project4/index.html",
-            {
-                "report_url": report_url,
-                "movie_count": len(_get_movie_data()["movies"]),
-                "study_design": STUDY_DESIGN,
-                "start_form": form,
-                "error": "Please provide a valid participant ID.",
-            },
+    writer = csv.writer(response)
+    writer.writerow(
+        [
+            "participant_id",
+            "design",
+            "age_range",
+            "movie_frequency",
+            "num_pairwise_observations",
+            "num_ranking_observations",
+            "elapsed_seconds",
+            "completed_at",
+        ]
+    )
+    for entry in StudyResponse.objects.order_by("completed_at"):
+        writer.writerow(
+            [
+                entry.participant_id,
+                entry.design,
+                entry.age_range,
+                entry.movie_frequency,
+                len(entry.pairwise_observations),
+                len(entry.ranking_observations),
+                entry.elapsed_seconds,
+                entry.completed_at.isoformat(),
+            ]
         )
+    return response
 
-    design = form.cleaned_data["design"]
-    if design == "random":
-        design = random.choice(["pairwise", "ranking"])
+
+def start_study(request):
+    # Participants only follow this link; the participant ID is generated here and the
+    # condition is assigned by the study design's own randomization, never chosen by the
+    # participant, to keep the between-subjects assignment uncontaminated.
+    participant_id = uuid.uuid4().hex[:8]
+    design = random.choice(["pairwise", "ranking"])
 
     request.session["pending_study"] = {
-        "participant_id": form.cleaned_data["participant_id"],
+        "participant_id": participant_id,
         "design": design,
     }
     return redirect("project4:consent")
@@ -287,6 +307,16 @@ def complete(request):
     )
     recommendations = top_recommendations(movie_data["movies"], weights, top_k=5)
     elapsed = round(time.time() - study.get("started_at", time.time()), 1)
+
+    StudyResponse.objects.create(
+        participant_id=study["participant_id"],
+        design=study["design"],
+        age_range=study["demographics"]["age_range"],
+        movie_frequency=study["demographics"]["movie_frequency"],
+        pairwise_observations=study["pairwise_observations"],
+        ranking_observations=study["ranking_observations"],
+        elapsed_seconds=elapsed,
+    )
 
     context = {
         "participant_id": study["participant_id"],

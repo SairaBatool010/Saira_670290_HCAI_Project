@@ -1,17 +1,6 @@
 from django import forms
 
 
-class StartStudyForm(forms.Form):
-    DESIGN_CHOICES = [
-        ("pairwise", "Design 1: Pairwise comparisons"),
-        ("ranking", "Design 2: Rank 10 movies"),
-        ("random", "Random assignment (recommended for study)"),
-    ]
-
-    participant_id = forms.CharField(label="Participant ID", max_length=50)
-    design = forms.ChoiceField(label="Study condition", choices=DESIGN_CHOICES, initial="random")
-
-
 class ConsentForm(forms.Form):
     AGE_CHOICES = [
         ("18-24", "18-24"),
